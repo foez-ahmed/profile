@@ -1,893 +1,1685 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Foez Ahmed - Lead RTL Design & Verification Engineer | RISC-V SoC Architecture, ASIC/FPGA Verification, AXI Interconnects & Open-Source Hardware.">
-  <meta name="keywords" content="Foez Ahmed, RTL Engineer, Verification Engineer, RISC-V, SystemVerilog, UVM, AXI4, Cache Coherence, DDR Controller, FPGA, ASIC, ADN Semiconductors, Squared Studio">
-  <meta name="author" content="Foez Ahmed">
-  <meta property="og:title" content="Foez Ahmed | Lead RTL Design & Verification Engineer">
-  <meta property="og:description" content="Specializing in RISC-V SoC Design, 12nm ASIC Tape-Out, Cache Coherence, DDR Subsystems, and Open-Source Hardware Development.">
-  <meta property="og:type" content="website">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23080d1a'/%3E%3Cpath d='M8 8h16v3H11v4h11v3H11v6H8z' fill='%2300f2fe'/%3E%3Ccircle cx='22' cy='22' r='3' fill='%2338bdf8'/%3E%3C/svg%3E">
-  
-  <title>Foez Ahmed | Lead RTL Design & Verification Engineer</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Foez Ahmed - Lead RTL Design & Verification Engineer | RISC-V SoC Architecture, TSMC 12nm Tape-Out, ASIC/FPGA Verification, AXI NoCs & Open-Source Hardware."
+    />
+    <meta
+      name="keywords"
+      content="Foez Ahmed, RTL Engineer, Verification Engineer, RISC-V, SystemVerilog, UVM, AXI4, Cache Coherence, Memory Controller, FPGA, ASIC, ADN Semiconductors, Squared Studio"
+    />
+    <meta name="author" content="Foez Ahmed" />
+    <meta
+      property="og:title"
+      content="Foez Ahmed | Lead RTL Design & Verification Engineer"
+    />
+    <meta
+      property="og:description"
+      content="Specializing in RISC-V SoC Architecture, 12nm ASIC Tape-Out, Cache Coherence, Memory Subsystems, and Open-Source Hardware Development."
+    />
+    <meta property="og:type" content="website" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='10' fill='%231a73e8'/%3E%3Cpath d='M8 8h16v3H11v4h11v3H11v6H8z' fill='%23ffffff'/%3E%3Ccircle cx='22' cy='22' r='3' fill='%23ffffff'/%3E%3C/svg%3E"
+    />
 
-  <!-- Google Fonts: Inter & JetBrains Mono for pristine engineering typography -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <!-- Background Interactive Silicon Canvas -->
-  <canvas id="silicon-canvas" aria-hidden="true"></canvas>
+    <title>Foez Ahmed | Lead RTL Design & Verification Engineer</title>
 
-  <!-- Ambient Glow Gradients -->
-  <div class="ambient-glow glow-top" aria-hidden="true"></div>
-  <div class="ambient-glow glow-bottom" aria-hidden="true"></div>
+    <!-- Google Antigravity Typography: Google Sans Flex & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,slnt,wdth,wght,ROND@8..144,-10..0,25..150,400..700,0..100&family=Google+Sans+Code:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Global Header & Navigation -->
-  <header class="site-header" id="header">
-    <div class="nav-container">
-      <a href="#hero" class="nav-logo" aria-label="Foez Ahmed Home">
-        <div class="logo-chip">
-          <span class="chip-dot"></span>
-          <span class="chip-code">FA//0x01</span>
-        </div>
-        <span class="logo-text">foez<span class="accent-dot">.</span>ahmed</span>
-      </a>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="antigravity-light">
+    <!-- Interactive Silicon Background Canvas (Light Theme Traces) -->
+    <canvas id="silicon-canvas" aria-hidden="true"></canvas>
 
-      <nav class="nav-links" id="nav-menu" aria-label="Main Navigation">
-        <a href="#about" class="nav-link">About</a>
-        <a href="#experience" class="nav-link">Experience</a>
-        <a href="#skills" class="nav-link">Skills</a>
-        <a href="#projects" class="nav-link">Projects</a>
-        <a href="#publications" class="nav-link">Research</a>
-        <a href="#contact" class="nav-link">Contact</a>
-      </nav>
+    <!-- Ambient Light Glow Accents -->
+    <div class="ambient-glow glow-top" aria-hidden="true"></div>
+    <div class="ambient-glow glow-bottom" aria-hidden="true"></div>
 
-      <div class="nav-actions">
-        <a href="Foez_Ahmed_CV.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" aria-label="View Resume PDF">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-          <span>Resume PDF</span>
+    <!-- SITE HEADER / NAVIGATION -->
+    <header class="site-header" id="header">
+      <div class="nav-container">
+        <a href="#hero" class="nav-logo" aria-label="Foez Ahmed Home">
+          <span class="logo-mark">FA</span>
+          <span class="logo-name">Foez Ahmed</span>
+          <span class="logo-badge">RTL &bull; 12nm</span>
         </a>
-        <button class="mobile-toggle" id="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </button>
-      </div>
-    </div>
-  </header>
 
-  <main id="main-content">
-    <!-- HERO SECTION -->
-    <section id="hero" class="hero-section">
-      <div class="container hero-content">
-        <div class="status-pill animate-fade-in">
-          <span class="pulse-indicator"></span>
-          <span class="status-text">Technical Lead @ ADN Semiconductors &bull; Founder @ Squared Studio</span>
-        </div>
+        <nav class="nav-links" id="nav-menu" aria-label="Main Navigation">
+          <a href="#about" class="nav-link">About</a>
+          <a href="#experience" class="nav-link">Experience</a>
+          <a href="#projects" class="nav-link">Projects</a>
+          <a href="#skills" class="nav-link">Skills</a>
+          <a href="#publications" class="nav-link">Research</a>
+          <a href="#contact" class="nav-link">Contact</a>
+        </nav>
 
-        <h1 class="hero-title animate-fade-in-up">
-          Architecting Silicon<br>
-          <span class="gradient-text">Verifying Reality.</span>
-        </h1>
-
-        <p class="hero-tagline animate-fade-in-up delay-1">
-          I am <strong>Foez Ahmed</strong>, a Lead RTL Design & Verification Engineer specializing in <strong>RISC-V SoC Architecture</strong>, <strong>12nm ASIC Tape-Out</strong>, high-bandwidth <strong>AXI Interconnects</strong>, coherent caches, and DDR memory subsystems.
-        </p>
-
-        <!-- Command Pill / Stats Ribbon -->
-        <div class="hero-meta-grid animate-fade-in-up delay-2">
-          <div class="meta-item">
-            <span class="meta-label">PRIMARY FOCUS</span>
-            <span class="meta-value">RISC-V &middot; AMBA AXI4 &middot; UVM</span>
-          </div>
-          <div class="meta-item">
-            <span class="meta-label">SILICON PROVEN</span>
-            <span class="meta-value">12nm Quad-Core @ 1.5 GHz</span>
-          </div>
-          <div class="meta-item">
-            <span class="meta-label">LEADERSHIP</span>
-            <span class="meta-value">Directing ~50 Hardware Engineers</span>
-          </div>
-        </div>
-
-        <div class="hero-cta-group animate-fade-in-up delay-3">
-          <a href="#projects" class="btn btn-primary">
-            <span>Explore Silicon Projects</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        <div class="nav-actions">
+          <a
+            href="Foez_Ahmed_CV.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-pill-primary"
+            aria-label="View Resume PDF"
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+              ></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            <span>Resume PDF</span>
           </a>
-          <a href="Foez_Ahmed_CV.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-glass" id="hero-resume-btn" aria-label="View Curriculum Vitae PDF">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-            <span>View CV (PDF)</span>
-          </a>
-          <a href="#contact" class="btn btn-secondary">Get In Touch</a>
-        </div>
-
-        <!-- Quick Social Links with Verified Badges -->
-        <div class="hero-socials animate-fade-in-up delay-4">
-          <a href="https://github.com/foez-ahmed" target="_blank" rel="noopener noreferrer" class="social-chip" title="GitHub Profile">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-            <span>github.com/foez-ahmed</span>
-          </a>
-          <a href="https://linkedin.com/in/foez-ahmed-84636b137" target="_blank" rel="noopener noreferrer" class="social-chip" title="LinkedIn Profile">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-            <span>foez-ahmed-84636b137</span>
-          </a>
-          <a href="https://adnsemicon.com/people/foez-ahmed.html" target="_blank" rel="noopener noreferrer" class="social-chip" title="ADN Semiconductors Profile">
-            <span class="badge-dot cyan"></span>
-            <span>ADN Semiconductors</span>
-          </a>
-          <a href="https://squared-studio.cc/people/foez-ahmed.html" target="_blank" rel="noopener noreferrer" class="social-chip" title="Squared Studio Open Source Profile">
-            <span class="badge-dot amber"></span>
-            <span>Squared Studio</span>
-          </a>
+          <button
+            class="mobile-toggle"
+            id="menu-toggle"
+            aria-label="Toggle navigation menu"
+            aria-expanded="false"
+          >
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </button>
         </div>
       </div>
+    </header>
 
-      <div class="scroll-prompt" aria-hidden="true">
-        <a href="#about" aria-label="Scroll down">
-          <div class="mouse-icon"><span class="wheel"></span></div>
-        </a>
-      </div>
-    </section>
+    <main id="main-content">
+      <!-- HERO SECTION: GOOGLE ANTIGRAVITY INSPIRED -->
+      <section id="hero" class="hero-section">
+        <div class="container hero-content">
+          <!-- Antigravity Style Announcement Pill -->
+          <a href="#projects" class="announcement-pill">
+            <span class="pill-status-dot"></span>
+            <span class="pill-label">Silicon Proven</span>
+            <span class="pill-divider">&bull;</span>
+            <span class="pill-text"
+              >12nm Quad-Core RISC-V SoC taped out @ 1.5 GHz</span
+            >
+            <span class="pill-arrow">&rarr;</span>
+          </a>
 
-    <!-- ABOUT SECTION & TELEMETRY -->
-    <section id="about" class="section">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag">// 01 &bull; PROFILE OVERVIEW</span>
-          <h2 class="section-title">Deep Technical Expertise from Microarchitecture to Silicon</h2>
-          <p class="section-subtitle">Bridging the gap between cutting-edge processor microarchitecture and tape-out verification methodologies.</p>
+          <h1 class="hero-title">
+            Architecting Silicon<br />
+            <span class="hero-gradient">Verifying Reality</span>
+          </h1>
+
+          <p class="hero-tagline">
+            RTL Design & Verification Engineer. I architect and verify
+            production semiconductor hardware &mdash; specializing in
+            <strong>RISC-V SoC microarchitecture</strong>, high-bandwidth
+            <strong>AMBA AXI4 NoCs</strong>,
+            <strong>Hardware Coherent</strong> Caches, and custom
+            <strong>Memory Controller IP</strong>.
+          </p>
+
+          <!-- Main Action Buttons -->
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-pill-dark">
+              <span>Explore Projects</span>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+              >
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+            <a
+              href="Foez_Ahmed_CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-pill-white"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>View CV (PDF)</span>
+            </a>
+            <a href="#contact" class="btn btn-pill-subtle">Get In Touch</a>
+          </div>
+
+          <!-- Metric Stat Capsules -->
+          <div class="stat-capsules">
+            <div class="stat-card">
+              <div class="stat-val">12<span class="stat-unit">nm</span></div>
+              <div class="stat-meta">
+                <span class="stat-title">TSMC Silicon Proven</span>
+                <span class="stat-desc">Quad-core RV64GV SoC @ 1.5 GHz</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-val">~50<span class="stat-unit">+</span></div>
+              <div class="stat-meta">
+                <span class="stat-title">Engineers Directed</span>
+                <span class="stat-desc"
+                  >Technical Lead @ ADN Semiconductors</span
+                >
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-val">100<span class="stat-unit">%</span></div>
+              <div class="stat-meta">
+                <span class="stat-title">Functional Coverage</span>
+                <span class="stat-desc"
+                  >ISA, AXI4 Stress &amp; UVM Verification</span
+                >
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-val">8<span class="stat-unit">+</span></div>
+              <div class="stat-meta">
+                <span class="stat-title">IEEE Publications</span>
+                <span class="stat-desc"
+                  >Semiconductor physics &amp; modular systems</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Verified Profile Chips -->
+          <div class="verified-chips">
+            <a
+              href="https://adnsemicon.com/people/foez-ahmed.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="verified-chip"
+              title="ADN Semiconductors Verified Profile"
+            >
+              <span class="chip-dot blue"></span>
+              <span>ADN Semiconductors</span>
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                ></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+            <a
+              href="https://squared-studio.cc/people/foez-ahmed.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="verified-chip"
+              title="Squared Studio Open Source Profile"
+            >
+              <span class="chip-dot amber"></span>
+              <span>Squared Studio</span>
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                ></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+            <a
+              href="https://github.com/foez-ahmed"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="verified-chip"
+              title="GitHub Repository"
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"
+                />
+              </svg>
+              <span>github.com/foez-ahmed</span>
+            </a>
+            <a
+              href="https://linkedin.com/in/foez-ahmed-84636b137"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="verified-chip"
+              title="LinkedIn Profile"
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+                />
+              </svg>
+              <span>LinkedIn</span>
+            </a>
+          </div>
         </div>
+      </section>
 
-        <div class="grid grid-2-col about-grid">
-          <!-- Bio Narrative -->
-          <div class="glass-card bio-card spotlight-card">
-            <h3 class="card-title">Hardware Architect & Verification Leader</h3>
-            <div class="bio-paragraphs">
+      <!-- SECTION 01: ABOUT & LEADERSHIP OVERVIEW -->
+      <section id="about" class="section">
+        <div class="container">
+          <div class="section-badge-row">
+            <span class="section-category-badge">About &bull; Overview</span>
+          </div>
+          <h2 class="section-title">
+            Deep Technical Expertise from Microarchitecture to Silicon
+          </h2>
+          <p class="section-subtitle">
+            Bridging the gap between cutting-edge processor microarchitecture,
+            non-blocking NoCs, and silicon tape-out verification
+            methodologies.
+          </p>
+
+          <div class="about-card-container">
+            <div class="about-narrative">
+              <h3 class="card-inner-heading">
+                Hardware Architect &amp; Verification Leader
+              </h3>
               <p>
-                With over <strong>4.5+ years of production semiconductor engineering experience</strong>, my work is centered on high-performance compute architectures: <strong>RISC-V SoC integration</strong>, non-blocking <strong>AMBA AXI4 crossbars</strong>, hardware-enforced <strong>cache coherence protocols</strong>, and robust <strong>DDR controller subsystems</strong>.
+                With over
+                <strong
+                  >4.5+ years of production semiconductor engineering
+                  experience</strong
+                >, my work is centered on high-performance compute
+                architectures: <strong>RISC-V SoC integration</strong>,
+                non-blocking <strong>AMBA AXI4 crossbars</strong>,
+                hardware-enforced <strong>cache coherence protocols</strong>,
+                and robust <strong>Memory controller subsystems</strong>.
               </p>
               <p>
-                I served as the technical lead for a <strong>quad-core RV64GV SoC targeting 1.5 GHz on TSMC 12nm</strong>, stewarding the architecture, peripheral interconnect partitioning, and comprehensive assembly/C-based system verification through tape-out with a 30+ engineer cross-functional team.
+                I served as the technical lead for a
+                <strong
+                  >quad-core RV64GV SoC targeting 1.5 GHz on TSMC 12nm</strong
+                >, stewarding the architecture, peripheral NoC
+                partitioning, and comprehensive assembly/C-based system
+                verification through tape-out with a 30+ engineer
+                cross-functional team for a California-based fabless
+                semiconductor client.
               </p>
               <p>
-                Currently at <strong>ADN Semiconductors</strong>, I direct the microarchitecture and AXI integration for custom DDR controller IP with a ~50-engineer team. Beyond commercial chips, as Founder & Maintainer of <strong>Squared Studio</strong>, I build and curate open-source SystemVerilog hardware primitives, educating the next generation of silicon architects.
+                Currently at <strong>ADN Semiconductors</strong>, I direct the
+                microarchitecture and AXI integration for custom Memory controller
+                IP with a ~50-engineer team. Beyond commercial chips, as Founder
+                &amp; Maintainer of <strong>Squared Studio</strong>, I build and
+                curate open-source SystemVerilog hardware primitives, educating
+                the next generation of silicon architects.
               </p>
-            </div>
 
-            <div class="signature-line">
-              <div class="sign-meta">
-                <span class="sign-name">Foez Ahmed</span>
-                <span class="sign-role">Lead RTL Design & Verification Engineer</span>
-              </div>
-              <div class="location-tag">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                <span>Dhaka, Bangladesh</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Live Metrics & Telemetry Grid -->
-          <div class="metrics-column">
-            <div class="metric-card glass-card spotlight-card">
-              <div class="metric-num">12<span class="metric-unit">nm</span></div>
-              <div class="metric-info">
-                <h4>Tape-Out Silicon Proven</h4>
-                <p>Quad-core RV64GV SoC clocked at 1.5 GHz with multi-level coherent caches.</p>
-              </div>
-            </div>
-
-            <div class="metric-card glass-card spotlight-card">
-              <div class="metric-num">~50<span class="metric-unit">+</span></div>
-              <div class="metric-info">
-                <h4>Engineers Directed</h4>
-                <p>Technical leadership across RTL microarchitecture, functional reviews, and verification.</p>
-              </div>
-            </div>
-
-            <div class="metric-card glass-card spotlight-card">
-              <div class="metric-num">100<span class="metric-unit">%</span></div>
-              <div class="metric-info">
-                <h4>Functional Coverage</h4>
-                <p>ISA-level, AXI interconnect stress, and protocol compliance checking.</p>
-              </div>
-            </div>
-
-            <div class="metric-card glass-card spotlight-card">
-              <div class="metric-num">8<span class="metric-unit">+</span></div>
-              <div class="metric-info">
-                <h4>Peer-Reviewed Publications</h4>
-                <p>IEEE conferences exploring multi-bridge FETs, modular systems, and hardware design.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- WORK EXPERIENCE & LEADERSHIP -->
-    <section id="experience" class="section section-darker">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag">// 02 &bull; CAREER TRAJECTORY</span>
-          <h2 class="section-title">Industry Leadership & Engineering Impact</h2>
-          <p class="section-subtitle">A proven track record of architectural definition, silicon delivery, and open-source contribution.</p>
-        </div>
-
-        <div class="experience-timeline">
-          <!-- Role 1: ADN Semiconductors -->
-          <div class="timeline-item">
-            <div class="timeline-marker">
-              <div class="marker-core"></div>
-              <div class="marker-pulse"></div>
-            </div>
-            <div class="timeline-content glass-card spotlight-card">
-              <div class="item-header">
-                <div class="item-meta">
-                  <span class="badge badge-active">CURRENT POSITION</span>
-                  <span class="timeline-date">Jan 2026 &mdash; Present</span>
+              <div class="signature-block">
+                <div class="sig-info">
+                  <span class="sig-name">Foez Ahmed</span>
+                  <span class="sig-role"
+                    >Lead RTL Design &amp; Verification Engineer</span
+                  >
                 </div>
-                <h3 class="role-title">Lead Engineer &mdash; RTL Design & Verification</h3>
-                <div class="company-link-row">
-                  <span class="company-name">ADN Semiconductors</span>
-                  <span class="company-divider">&bull;</span>
-                  <span class="company-location">Mohakhali, Dhaka</span>
-                  <a href="https://adnsemicon.com/people/foez-ahmed.html" target="_blank" rel="noopener noreferrer" class="ext-link">
-                    Verified Profile
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                <div class="sig-loc">
+                  <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
+                    ></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                  <span>Dhaka, Bangladesh (UTC+6)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="about-highlights-column">
+              <div class="highlight-capsule">
+                <div class="capsule-icon blue-bg">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#1a73e8"
+                    stroke-width="2"
+                  >
+                    <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                    <rect x="9" y="9" width="6" height="6"></rect>
+                    <line x1="9" y1="1" x2="9" y2="4"></line>
+                    <line x1="15" y1="1" x2="15" y2="4"></line>
+                    <line x1="9" y1="20" x2="9" y2="23"></line>
+                    <line x1="15" y1="20" x2="15" y2="23"></line>
+                    <line x1="20" y1="9" x2="23" y2="9"></line>
+                    <line x1="20" y1="14" x2="23" y2="14"></line>
+                    <line x1="1" y1="9" x2="4" y2="9"></line>
+                    <line x1="1" y1="14" x2="4" y2="14"></line>
+                  </svg>
+                </div>
+                <div class="capsule-text">
+                  <h4>TSMC 12nm Tape-Out</h4>
+                  <p>
+                    Commercial ASIC fabrication experience delivering 1.5 GHz
+                    RV64GV quad-core silicon.
+                  </p>
+                </div>
+              </div>
+
+              <div class="highlight-capsule">
+                <div class="capsule-icon green-bg">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#137333"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+                    ></path>
+                    <polyline points="9 12 11 14 15 10"></polyline>
+                  </svg>
+                </div>
+                <div class="capsule-text">
+                  <h4>100% ISA Functional Closure</h4>
+                  <p>
+                    Rigorous multi-stage verification suite across per-core,
+                    NoC, and memory stress.
+                  </p>
+                </div>
+              </div>
+
+              <div class="highlight-capsule">
+                <div class="capsule-icon amber-bg">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#b06000"
+                    stroke-width="2"
+                  >
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                  </svg>
+                </div>
+                <div class="capsule-text">
+                  <h4>Leadership of ~50 Engineers</h4>
+                  <p>
+                    Guiding microarchitecture definitions, code reviews, and
+                    timing closure workflows.
+                  </p>
+                </div>
+              </div>
+
+              <div class="highlight-capsule">
+                <div class="capsule-icon purple-bg">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#7627bb"
+                    stroke-width="2"
+                  >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path
+                      d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="capsule-text">
+                  <h4>Open Hardware Ecosystem</h4>
+                  <p>
+                    Founder &amp; maintainer of Squared Studio, releasing
+                    verified SystemVerilog primitives.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 02: CAREER TIMELINE & LEADERSHIP -->
+      <section id="experience" class="section section-tinted">
+        <div class="container">
+          <div class="section-badge-row">
+            <span class="section-category-badge">Career &bull; Trajectory</span>
+          </div>
+          <h2 class="section-title">
+            Industry Leadership &amp; Engineering Impact
+          </h2>
+          <p class="section-subtitle">
+            A proven track record of architectural definition, silicon delivery,
+            and open-source contribution.
+          </p>
+
+          <div class="experience-stack">
+            <!-- Role 1: ADN Semiconductors -->
+            <div class="exp-card">
+              <div class="exp-header">
+                <div class="exp-meta">
+                  <span class="pill-tag pill-tag-blue">Current Role</span>
+                  <span class="exp-period">Jan 2026 &mdash; Present</span>
+                </div>
+                <h3 class="exp-role">
+                  Lead Engineer &mdash; RTL Design &amp; Verification
+                </h3>
+                <div class="exp-company-row">
+                  <span class="exp-company">ADN Semiconductors</span>
+                  <span class="exp-divider">&bull;</span>
+                  <span class="exp-location">Mohakhali, Dhaka</span>
+                  <a
+                    href="https://adnsemicon.com/people/foez-ahmed.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="exp-link"
+                  >
+                    Verified Profile &rarr;
                   </a>
                 </div>
               </div>
-              <ul class="contributions-list">
-                <li><strong>DDR Controller Microarchitecture:</strong> Defining the data-handling microarchitecture, command scheduling, and AXI interconnect integration for high-performance memory subsystems.</li>
-                <li><strong>Technical Direction for ~50 Engineers:</strong> Providing architectural oversight, leading deep-dive functional reviews, and establishing verification benchmarks across design teams.</li>
-                <li><strong>RTL Optimization & Mentorship:</strong> Guiding junior and mid-level engineers in implementing clean, synthesis-friendly SystemVerilog RTL aligned with timing closure goals.</li>
-                <li><strong>RISC-V & FPGA Emulation:</strong> Driving hardware emulation sprints for multi-million gate SoC blocks on high-density FPGA platforms.</li>
+
+              <ul class="exp-points">
+                <li>
+                  <strong>Memory Controller Microarchitecture:</strong> Defining
+                  the data-handling microarchitecture, command queue
+                  arbitration, and AXI NoC integration for
+                  high-performance memory subsystems.
+                </li>
+                <li>
+                  <strong>Technical Direction for ~50 Engineers:</strong>
+                  Providing architectural oversight, leading deep-dive
+                  functional reviews, and establishing verification benchmarks
+                  across design teams.
+                </li>
+                <li>
+                  <strong>RTL Optimization &amp; Mentorship:</strong> Guiding
+                  junior and mid-level engineers in implementing clean,
+                  synthesis-friendly SystemVerilog RTL aligned with
+                  multi-gigahertz timing closure goals.
+                </li>
+                <li>
+                  <strong>RISC-V &amp; FPGA Emulation:</strong> Driving hardware
+                  emulation sprints for multi-million gate SoC blocks on
+                  high-density FPGA platforms.
+                </li>
               </ul>
-              <div class="card-tags">
-                <span class="tag">DDR Subsystem</span>
-                <span class="tag">AXI Integration</span>
-                <span class="tag">Microarchitecture</span>
-                <span class="tag">Team Leadership</span>
-                <span class="tag">FPGA Emulation</span>
+
+              <div class="exp-tags">
+                <span class="chip-tag">Memory Subsystem</span>
+                <span class="chip-tag">AXI4 NoC</span>
+                <span class="chip-tag">Microarchitecture</span>
+                <span class="chip-tag">Team Leadership</span>
+                <span class="chip-tag">FPGA Emulation</span>
               </div>
             </div>
-          </div>
 
-          <!-- Role 2: Founder & Maintainer Squared Studio -->
-          <div class="timeline-item">
-            <div class="timeline-marker">
-              <div class="marker-core amber"></div>
-            </div>
-            <div class="timeline-content glass-card spotlight-card">
-              <div class="item-header">
-                <div class="item-meta">
-                  <span class="badge badge-amber">OPEN SOURCE LEADERSHIP</span>
-                  <span class="timeline-date">Ongoing Initiative</span>
+            <!-- Role 2: Founder Squared Studio -->
+            <div class="exp-card">
+              <div class="exp-header">
+                <div class="exp-meta">
+                  <span class="pill-tag pill-tag-amber">Open Source</span>
+                  <span class="exp-period">2024 &mdash; Present</span>
                 </div>
-                <h3 class="role-title">Founder & Maintainer</h3>
-                <div class="company-link-row">
-                  <span class="company-name">Squared Studio</span>
-                  <span class="company-divider">&bull;</span>
-                  <span class="company-location">Open-Source Community</span>
-                  <a href="https://squared-studio.cc/people/foez-ahmed.html" target="_blank" rel="noopener noreferrer" class="ext-link">
-                    Community Portal
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                <h3 class="exp-role">Founder &amp; Maintainer</h3>
+                <div class="exp-company-row">
+                  <span class="exp-company"
+                    >Squared Studio (squared-studio.cc)</span
+                  >
+                  <span class="exp-divider">&bull;</span>
+                  <span class="exp-location"
+                    >Open-Source Hardware Community</span
+                  >
+                  <a
+                    href="https://squared-studio.cc/people/foez-ahmed.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="exp-link"
+                  >
+                    Community Portal &rarr;
                   </a>
                 </div>
               </div>
-              <ul class="contributions-list">
-                <li><strong>Open Hardware IP Ecosystem:</strong> Founded and maintaining community hardware repositories including reusable SystemVerilog primitives (`squared-studio/common`), parameterizable FIFOs, arbiters, and bus transceivers.</li>
-                <li><strong>RISC-V Computational Blocks:</strong> Spearheading open-source designs of modular RISC-V ALUs, decode logic, and educational hardware modules.</li>
-                <li><strong>Engineering Mentorship:</strong> Active reviewer on GitHub discussions, fostering hands-on digital design knowledge in SystemVerilog, UVM, and synthesis flows for aspiring silicon engineers.</li>
+
+              <ul class="exp-points">
+                <li>
+                  <strong>Open Hardware IP Ecosystem:</strong> Founded and
+                  maintaining community hardware repositories including reusable
+                  SystemVerilog primitives (<code>squared-studio/common</code>),
+                  parameterizable FIFOs, arbiters, and bus transceivers.
+                </li>
+                <li>
+                  <strong>RISC-V Computational Blocks:</strong> Spearheading
+                  open-source designs of modular RISC-V ALUs, opcode decode
+                  logic, and educational hardware modules.
+                </li>
+                <li>
+                  <strong>Engineering Mentorship:</strong> Active reviewer on
+                  GitHub discussions, fostering hands-on digital design
+                  knowledge in SystemVerilog, UVM, and synthesis flows for
+                  aspiring silicon engineers.
+                </li>
               </ul>
-              <div class="card-tags">
-                <span class="tag">Open Hardware</span>
-                <span class="tag">SystemVerilog</span>
-                <span class="tag">RISC-V ALU</span>
-                <span class="tag">Open Source</span>
-                <span class="tag">Code Reviews</span>
-              </div>
-            </div>
-          </div>
 
-          <!-- Role 3: Dynamic Solution Innovators Ltd. -->
-          <div class="timeline-item">
-            <div class="timeline-marker">
-              <div class="marker-core blue"></div>
+              <div class="exp-tags">
+                <span class="chip-tag">Open Hardware</span>
+                <span class="chip-tag">SystemVerilog</span>
+                <span class="chip-tag">RISC-V ALU</span>
+                <span class="chip-tag">Community IP</span>
+                <span class="chip-tag">Code Reviews</span>
+              </div>
             </div>
-            <div class="timeline-content glass-card spotlight-card">
-              <div class="item-header">
-                <div class="item-meta">
-                  <span class="badge">TAPE-OUT SUCCESS</span>
-                  <span class="timeline-date">Jan 2022 &mdash; Jan 2026 (4 Years)</span>
+
+            <!-- Role 3: Dynamic Solution Innovators Ltd. -->
+            <div class="exp-card">
+              <div class="exp-header">
+                <div class="exp-meta">
+                  <span class="pill-tag pill-tag-green">12nm Tape-Out</span>
+                  <span class="exp-period"
+                    >Jan 2022 &mdash; Jan 2026 (4 Years)</span
+                  >
                 </div>
-                <h3 class="role-title">Engineer &mdash; RTL Design & Verification</h3>
-                <div class="company-link-row">
-                  <span class="company-name">Dynamic Solution Innovators Ltd.</span>
-                  <span class="company-divider">&bull;</span>
-                  <span class="company-location">Mohakhali DOHS, Dhaka</span>
-                  <span class="company-badge-conf">California Fabless Semiconductor Client (NDA)</span>
+                <h3 class="exp-role">
+                  Engineer &mdash; RTL Design &amp; Verification
+                </h3>
+                <div class="exp-company-row">
+                  <span class="exp-company"
+                    >Dynamic Solution Innovators Ltd.</span
+                  >
+                  <span class="exp-divider">&bull;</span>
+                  <span class="exp-location">Mohakhali DOHS, Dhaka</span>
+                  <span class="exp-nda"
+                    >[California Fabless Semiconductor Client &bull; NDA]</span
+                  >
                 </div>
               </div>
-              <ul class="contributions-list">
-                <li><strong>12nm RISC-V Quad-Core SoC (1.5 GHz Target &mdash; Taped Out):</strong> Served as Technical Lead for architecture and verification of a 4&times; RV64GV SoC with dedicated wireless subsystem, private 16KB I-cache / 32KB D-cache per core, and 2MB shared L2 cache. Led 30+ engineers (10&ndash;12 design, 16&ndash;20 verification, ~5 firmware).</li>
-                <li><strong>Interconnect Hierarchy & Fabric Splitting:</strong> Co-proposed and architected the split of the AXI fabric into a high-bandwidth low-latency compute network and an independent peripheral network. Resolved AXI ID-width growth and data-width conversions across hierarchy.</li>
-                <li><strong>Multi-Stage System Verification Flow:</strong> Created the assembly and C testbench suite spanning Smoke, Per-core ISA functional (~100% coverage), Interconnect (~95% coverage), Stress (~90% coverage), and floating-point benchmark tests.</li>
-                <li><strong>Production AXI4 Master/Slave VIP:</strong> Independently developed a reusable class-based SystemVerilog AXI4 VIP with driver/monitor architecture, comprehensive protocol assertions (SVA), burst modes, and QoS ordering.</li>
-                <li><strong>Custom Directory-Based Coherent Cache:</strong> Owned non-AXI coherence protocol end-to-end, architecting 4-way private caches tracking logical ownership and write-back eviction logic.</li>
-                <li><strong>Multi-FPGA Emulation:</strong> Built 2-FPGA partition framework for over-capacity design utilizing virtual host-shared-memory inter-FPGA synchronisation.</li>
+
+              <ul class="exp-points">
+                <li>
+                  <strong
+                    >12nm RISC-V Quad-Core SoC (1.5 GHz &mdash; Taped
+                    Out):</strong
+                  >
+                  Served as Technical Lead for architecture and verification of
+                  a 4&times; RV64GV SoC with dedicated wireless subsystem,
+                  private 16KB I-cache / 32KB D-cache per core, and 2MB shared
+                  L2 cache. Led 30+ engineers (10&ndash;12 design, 16&ndash;20
+                  verification, ~5 firmware).
+                </li>
+                <li>
+                  <strong
+                    >NoC Hierarchy &amp; Fabric Splitting:</strong
+                  >
+                  Co-proposed and architected the split of the AXI fabric into a
+                  high-bandwidth low-latency compute network and an independent
+                  peripheral network. Resolved AXI ID-width growth and
+                  data-width conversions across hierarchy.
+                </li>
+                <li>
+                  <strong>Multi-Stage System Verification Flow:</strong> Created
+                  the assembly and C testbench suite spanning Smoke, Per-core
+                  ISA functional (~100% coverage), NoC (~95% coverage),
+                  Stress (~90% coverage), and floating-point benchmark tests.
+                </li>
+                <li>
+                  <strong>Production AXI4 Master/Slave VIP:</strong>
+                  Independently developed a reusable class-based SystemVerilog
+                  AXI4 VIP with driver/monitor architecture, comprehensive
+                  protocol assertions (SVA), burst modes, and QoS ordering.
+                </li>
+                <li>
+                  <strong>Custom Directory-Based Coherent Cache:</strong> Owned
+                  non-AXI coherence protocol end-to-end, architecting 4-way
+                  private caches tracking logical ownership and write-back
+                  eviction logic.
+                </li>
+                <li>
+                  <strong>Multi-FPGA Emulation:</strong> Built 2-FPGA partition
+                  framework for over-capacity design utilizing virtual
+                  host-shared-memory inter-FPGA synchronisation.
+                </li>
               </ul>
-              <div class="card-tags">
-                <span class="tag">12nm Tape-Out</span>
-                <span class="tag">RV64GV</span>
-                <span class="tag">AXI4 Interconnect</span>
-                <span class="tag">Cache Coherence</span>
-                <span class="tag">Class-based VIP</span>
-                <span class="tag">Multi-FPGA</span>
+
+              <div class="exp-tags">
+                <span class="chip-tag">12nm Tape-Out</span>
+                <span class="chip-tag">RV64GV</span>
+                <span class="chip-tag">AXI4 NoC</span>
+                <span class="chip-tag">Cache Coherence</span>
+                <span class="chip-tag">Class VIP</span>
+                <span class="chip-tag">Multi-FPGA</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- TECHNICAL ARSENAL / SKILLS -->
-    <section id="skills" class="section">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag">// 03 &bull; HARDWARE & VERIFICATION STACK</span>
-          <h2 class="section-title">Technical Skills & Toolchains</h2>
-          <p class="section-subtitle">High-fidelity mastery spanning hardware description, verification methodologies, and industry EDA tool suites.</p>
-        </div>
-
-        <!-- Filter Controls -->
-        <div class="skill-tabs-nav" role="tablist" aria-label="Skill Categories">
-          <button class="skill-tab active" data-filter="all">All Disciplines</button>
-          <button class="skill-tab" data-filter="arch">Architecture & RTL</button>
-          <button class="skill-tab" data-filter="verif">Verification & UVM</button>
-          <button class="skill-tab" data-filter="bus">Protocols & Busses</button>
-          <button class="skill-tab" data-filter="tools">EDA & Emulation</button>
-          <button class="skill-tab" data-filter="sw">Software & Scripting</button>
-        </div>
-
-        <div class="skills-grid">
-          <!-- Card 1 -->
-          <div class="skill-card glass-card spotlight-card" data-category="arch">
-            <div class="skill-card-top">
-              <div class="skill-icon-box">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
-              </div>
-              <h3 class="skill-title">Architecture & RTL</h3>
-            </div>
-            <p class="skill-desc">Microarchitecture specification, pipeline design, clock gating, and synthesis-ready RTL implementation.</p>
-            <div class="skill-pills">
-              <span class="pill pill-primary">SystemVerilog</span>
-              <span class="pill pill-primary">Verilog (IEEE 1364)</span>
-              <span class="pill">VHDL</span>
-              <span class="pill">Chisel HDL</span>
-              <span class="pill">RV64GV RISC-V</span>
-              <span class="pill">Foundry Memory / PLLs</span>
-              <span class="pill">Clock / Reset Trees</span>
-            </div>
+      <!-- SECTION 03: FEATURED SILICON PROJECTS -->
+      <section id="projects" class="section">
+        <div class="container">
+          <div class="section-badge-row">
+            <span class="section-category-badge">Hardware &bull; Projects</span>
           </div>
+          <h2 class="section-title">
+            Featured Silicon &amp; Architecture Projects
+          </h2>
+          <p class="section-subtitle">
+            Explore tape-outs, verification IP, and open-source contributions.
+            Click any project card for deep architectural specifications.
+          </p>
 
-          <!-- Card 2 -->
-          <div class="skill-card glass-card spotlight-card" data-category="verif">
-            <div class="skill-card-top">
-              <div class="skill-icon-box">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+          <div class="projects-container">
+            <!-- Project 1: RV64GV SoC -->
+            <div
+              class="project-showcase-card"
+              onclick="openProjectModal('rv64-soc')"
+            >
+              <div class="proj-badge-row">
+                <span class="pill-tag pill-tag-blue"
+                  >TSMC 12nm &bull; 1.5 GHz</span
+                >
+                <span class="proj-number">01</span>
               </div>
-              <h3 class="skill-title">Verification & Quality</h3>
-            </div>
-            <p class="skill-desc">Advanced constraint-random verification, assertion-based checking, and functional coverage closure.</p>
-            <div class="skill-pills">
-              <span class="pill pill-primary">UVM (Universal Verification Methodology)</span>
-              <span class="pill pill-primary">SystemVerilog Assertions (SVA)</span>
-              <span class="pill">Class-based VIP Design</span>
-              <span class="pill">Functional Coverage Models</span>
-              <span class="pill">CoCoTB (Python testbenches)</span>
-              <span class="pill">Directed & Stress Testing</span>
-              <span class="pill">Assembly / C Boot Tests</span>
-            </div>
-          </div>
+              <h3 class="proj-card-title">
+                Quad-Core RV64GV SoC Architecture &amp; Tape-Out
+              </h3>
+              <p class="proj-card-desc">
+                High-performance 1.5 GHz 64-bit RISC-V SoC with split AXI
+                compute/peripheral fabrics, multi-level caching, and dedicated
+                wireless subsystem.
+              </p>
 
-          <!-- Card 3 -->
-          <div class="skill-card glass-card spotlight-card" data-category="bus">
-            <div class="skill-card-top">
-              <div class="skill-icon-box">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+              <div class="proj-key-metrics">
+                <div class="p-metric">
+                  <span class="p-metric-label">Target Silicon</span>
+                  <span class="p-metric-val">TSMC 12nm FinFET</span>
+                </div>
+                <div class="p-metric">
+                  <span class="p-metric-label">Leadership</span>
+                  <span class="p-metric-val">30+ Engineers</span>
+                </div>
+                <div class="p-metric">
+                  <span class="p-metric-label">Verification</span>
+                  <span class="p-metric-val">~100% ISA Functional</span>
+                </div>
               </div>
-              <h3 class="skill-title">Busses & Memory Systems</h3>
-            </div>
-            <p class="skill-desc">Interconnect fabric optimization, cache coherency protocols, and DDR memory controller subsystems.</p>
-            <div class="skill-pills">
-              <span class="pill pill-primary">AMBA AXI4 / AXI-Lite</span>
-              <span class="pill pill-primary">AHB / APB / OBI / Wishbone</span>
-              <span class="pill">Directory Cache Coherence</span>
-              <span class="pill">DDR Controller Subsystems</span>
-              <span class="pill">AXI ID & Data Conversion</span>
-              <span class="pill">UART / SPI / I2C / I2S</span>
-            </div>
-          </div>
 
-          <!-- Card 4 -->
-          <div class="skill-card glass-card spotlight-card" data-category="tools">
-            <div class="skill-card-top">
-              <div class="skill-icon-box">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+              <div class="proj-card-footer">
+                <div class="proj-tags">
+                  <span class="chip-tag">RISC-V</span>
+                  <span class="chip-tag">12nm Tape-Out</span>
+                  <span class="chip-tag">AXI4</span>
+                  <span class="chip-tag">L1/L2 Caches</span>
+                </div>
+                <span class="explore-link">
+                  <span>Show details</span>
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.2"
+                  >
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </span>
               </div>
-              <h3 class="skill-title">EDA Toolchains & Emulation</h3>
             </div>
-            <p class="skill-desc">Commercial simulation engines, FPGA synthesis, timing analysis, and hardware-in-the-loop debugging.</p>
-            <div class="skill-pills">
-              <span class="pill pill-primary">Synopsys VCS</span>
-              <span class="pill pill-primary">Siemens QuestaSim / ModelSim</span>
-              <span class="pill">Xilinx Vivado ML</span>
-              <span class="pill">Multi-FPGA Partitioning</span>
-              <span class="pill">Static Timing Analysis (STA)</span>
-              <span class="pill">Icarus Verilog & GTKWave</span>
-            </div>
-          </div>
 
-          <!-- Card 5 -->
-          <div class="skill-card glass-card spotlight-card" data-category="sw">
-            <div class="skill-card-top">
-              <div class="skill-icon-box">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            <!-- Project 2: AXI4 VIP -->
+            <div
+              class="project-showcase-card"
+              onclick="openProjectModal('axi-vip')"
+            >
+              <div class="proj-badge-row">
+                <span class="pill-tag pill-tag-purple">Verification IP</span>
+                <span class="proj-number">02</span>
               </div>
-              <h3 class="skill-title">Embedded & Automation</h3>
-            </div>
-            <p class="skill-desc">Firmware bringup, regression orchestration scripts, and automated CI/CD hardware testing pipelines.</p>
-            <div class="skill-pills">
-              <span class="pill pill-primary">C / Embedded C</span>
-              <span class="pill pill-primary">Python & PyTest</span>
-              <span class="pill">Bash Scripting</span>
-              <span class="pill">GNU Makefiles</span>
-              <span class="pill">Git / CI/CD Workflows</span>
-              <span class="pill">Assembly (RISC-V ISA)</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+              <h3 class="proj-card-title">
+                Class-Based AMBA AXI4 Master &amp; Slave VIP
+              </h3>
+              <p class="proj-card-desc">
+                Production-grade SystemVerilog verification IP supporting
+                concurrent bidirectional transactions, QoS reordering, and
+                hundreds of formal SVA protocol assertions.
+              </p>
 
-    <!-- FEATURED HARDWARE PROJECTS -->
-    <section id="projects" class="section section-darker">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag">// 04 &bull; SILICON & HARDWARE ARTIFACTS</span>
-          <h2 class="section-title">Featured Engineering Projects</h2>
-          <p class="section-subtitle">Selected tape-outs, verification IP, and open-source contributions. Click any project card for deep architecture details.</p>
-        </div>
+              <div class="proj-key-metrics">
+                <div class="p-metric">
+                  <span class="p-metric-label">Specification</span>
+                  <span class="p-metric-val">Full AMBA AXI4</span>
+                </div>
+                <div class="p-metric">
+                  <span class="p-metric-label">Role</span>
+                  <span class="p-metric-val">Sole VIP Architect</span>
+                </div>
+                <div class="p-metric">
+                  <span class="p-metric-label">Coverage</span>
+                  <span class="p-metric-val">SVA Protocol Suite</span>
+                </div>
+              </div>
 
-        <div class="projects-grid">
-          <!-- Project 1: Quad-Core RV64GV SoC -->
-          <div class="project-card glass-card spotlight-card" onclick="openProjectModal('rv64-soc')">
-            <div class="card-chip-badge">TAPE-OUT 12nm</div>
-            <div class="project-header">
-              <div class="project-num">PRJ-01</div>
-              <h3 class="project-title">Quad-Core RV64GV SoC Architecture & Verification</h3>
-              <p class="project-summary">High-performance 1.5 GHz 64-bit RISC-V SoC with split AXI compute/peripheral fabrics, multi-level caching, and dedicated wireless subsystem.</p>
+              <div class="proj-card-footer">
+                <div class="proj-tags">
+                  <span class="chip-tag">SystemVerilog</span>
+                  <span class="chip-tag">SVA</span>
+                  <span class="chip-tag">VIP</span>
+                  <span class="chip-tag">Functional Coverage</span>
+                </div>
+                <span class="explore-link">
+                  <span>Show details</span>
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.2"
+                  >
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </span>
+              </div>
             </div>
-            <div class="project-highlights">
-              <div class="highlight-item">
-                <span class="highlight-label">Silicon Target:</span>
-                <span class="highlight-val">TSMC 12nm &bull; 1.5 GHz</span>
-              </div>
-              <div class="highlight-item">
-                <span class="highlight-label">My Role:</span>
-                <span class="highlight-val">Arch & Verification Lead (30+ Engs)</span>
-              </div>
-              <div class="highlight-item">
-                <span class="highlight-label">Interconnect:</span>
-                <span class="highlight-val">Hierarchical AXI with ID/Data Width conversion</span>
-              </div>
-            </div>
-            <div class="project-footer">
-              <div class="card-tags">
-                <span class="tag">RISC-V</span>
-                <span class="tag">12nm Tapeout</span>
-                <span class="tag">AXI4</span>
-                <span class="tag">L1/L2 Caches</span>
-              </div>
-              <span class="view-details-cta">
-                View Architecture
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </span>
-            </div>
-          </div>
 
-          <!-- Project 2: AXI4 Master/Slave VIP -->
-          <div class="project-card glass-card spotlight-card" onclick="openProjectModal('axi-vip')">
-            <div class="card-chip-badge cyan">VERIFICATION IP</div>
-            <div class="project-header">
-              <div class="project-num">PRJ-02</div>
-              <h3 class="project-title">Class-Based AMBA AXI4 Master & Slave VIP</h3>
-              <p class="project-summary">Production-grade SystemVerilog verification IP supporting concurrent bidirectional transactions, QoS reordering, and SVA protocol compliance.</p>
-            </div>
-            <div class="project-highlights">
-              <div class="highlight-item">
-                <span class="highlight-label">Protocol:</span>
-                <span class="highlight-val">Full AMBA AXI4 Specification</span>
+            <!-- Project 3: Coherent Cache -->
+            <div
+              class="project-showcase-card"
+              onclick="openProjectModal('coherent-cache')"
+            >
+              <div class="proj-badge-row">
+                <span class="pill-tag pill-tag-amber">Cache Subsystem</span>
+                <span class="proj-number">03</span>
               </div>
-              <div class="highlight-item">
-                <span class="highlight-label">Features:</span>
-                <span class="highlight-val">Exclusive Access, Out-of-Order QoS, Bursts</span>
-              </div>
-              <div class="highlight-item">
-                <span class="highlight-label">Integration:</span>
-                <span class="highlight-val">Driver/Monitor UVM-ready Architecture</span>
-              </div>
-            </div>
-            <div class="project-footer">
-              <div class="card-tags">
-                <span class="tag">SystemVerilog</span>
-                <span class="tag">VIP</span>
-                <span class="tag">SVA</span>
-                <span class="tag">Functional Coverage</span>
-              </div>
-              <span class="view-details-cta">
-                View Architecture
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </span>
-            </div>
-          </div>
+              <h3 class="proj-card-title">
+                Directory-Based Coherent Cache Protocol
+              </h3>
+              <p class="proj-card-desc">
+                End-to-end definition, microarchitecture, and verification of a
+                custom non-AXI coherence protocol for 4-way private caches with
+                atomic write-back eviction.
+              </p>
 
-          <!-- Project 3: Custom Directory Coherent Cache -->
-          <div class="project-card glass-card spotlight-card" onclick="openProjectModal('coherent-cache')">
-            <div class="card-chip-badge amber">CACHE SUBSYSTEM</div>
-            <div class="project-header">
-              <div class="project-num">PRJ-03</div>
-              <h3 class="project-title">Directory-Based Coherent Cache Protocol</h3>
-              <p class="project-summary">End-to-end definition, microarchitecture, and verification of a custom non-AXI coherence protocol for 4-way private caches with write-back eviction.</p>
-            </div>
-            <div class="project-highlights">
-              <div class="highlight-item">
-                <span class="highlight-label">Topology:</span>
-                <span class="highlight-val">4-Way Associative Private Caches</span>
+              <div class="proj-key-metrics">
+                <div class="p-metric">
+                  <span class="p-metric-label">Associativity</span>
+                  <span class="p-metric-val">4-Way Private L1</span>
+                </div>
+                <div class="p-metric">
+                  <span class="p-metric-label">Coherence</span>
+                  <span class="p-metric-val">Directory Invalidation</span>
+                </div>
+                <div class="p-metric">
+                  <span class="p-metric-label">Delivery</span>
+                  <span class="p-metric-val">Zero-Deadlock Protocol</span>
+                </div>
               </div>
-              <div class="highlight-item">
-                <span class="highlight-label">Coherence:</span>
-                <span class="highlight-val">Logical ownership tracking & write-back</span>
-              </div>
-              <div class="highlight-item">
-                <span class="highlight-label">Ownership:</span>
-                <span class="highlight-val">Protocol Spec, RTL Microarch & Verif</span>
-              </div>
-            </div>
-            <div class="project-footer">
-              <div class="card-tags">
-                <span class="tag">Cache Coherence</span>
-                <span class="tag">Directory Protocol</span>
-                <span class="tag">SRAM Blocks</span>
-              </div>
-              <span class="view-details-cta">
-                View Architecture
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </span>
-            </div>
-          </div>
 
-          <!-- Project 4: Squared Studio Open Hardware -->
-          <div class="project-card glass-card spotlight-card" onclick="openProjectModal('squared-studio')">
-            <div class="card-chip-badge green">OPEN SOURCE</div>
-            <div class="project-header">
-              <div class="project-num">PRJ-04</div>
-              <h3 class="project-title">Squared Studio Open Hardware & RISC-V Blocks</h3>
-              <p class="project-summary">Open-source hardware ecosystem providing reusable SystemVerilog primitives, parameterizable queues, and modular RISC-V compute elements.</p>
+              <div class="proj-card-footer">
+                <div class="proj-tags">
+                  <span class="chip-tag">Cache Coherence</span>
+                  <span class="chip-tag">Directory Protocol</span>
+                  <span class="chip-tag">SRAM Macros</span>
+                </div>
+                <span class="explore-link">
+                  <span>Show details</span>
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.2"
+                  >
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </span>
+              </div>
             </div>
-            <div class="project-highlights">
-              <div class="highlight-item">
-                <span class="highlight-label">Ecosystem:</span>
-                <span class="highlight-val">squared-studio / common & RTL Blocks</span>
-              </div>
-              <div class="highlight-item">
-                <span class="highlight-label">Components:</span>
-                <span class="highlight-val">RISC-V ALU by Opcode, Arbiters, FIFOs</span>
-              </div>
-              <div class="highlight-item">
-                <span class="highlight-label">Availability:</span>
-                <span class="highlight-val">GitHub Open Source Repositories</span>
-              </div>
-            </div>
-            <div class="project-footer">
-              <div class="card-tags">
-                <span class="tag">Open Source</span>
-                <span class="tag">RISC-V ALU</span>
-                <span class="tag">SystemVerilog</span>
-                <span class="tag">Community</span>
-              </div>
-              <span class="view-details-cta">
-                View Architecture
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </span>
-            </div>
-          </div>
 
-          <!-- Project 5: DDR Controller Microarchitecture -->
-          <div class="project-card glass-card spotlight-card" onclick="openProjectModal('ddr-controller')">
-            <div class="card-chip-badge cyan">IP ARCHITECTURE</div>
-            <div class="project-header">
-              <div class="project-num">PRJ-05</div>
-              <h3 class="project-title">Custom DDR Controller Microarchitecture</h3>
-              <p class="project-summary">Architectural specification, queue scheduling, and AXI fabric integration of high-bandwidth DDR memory controller IP at ADN Semiconductors.</p>
-            </div>
-            <div class="project-highlights">
-              <div class="highlight-item">
-                <span class="highlight-label">Domain:</span>
-                <span class="highlight-val">High-Bandwidth Memory Controller IP</span>
+            <!-- Project 4: Squared Studio -->
+            <div
+              class="project-showcase-card"
+              onclick="openProjectModal('squared-studio')"
+            >
+              <div class="proj-badge-row">
+                <span class="pill-tag pill-tag-green">Open Source</span>
+                <span class="proj-number">04</span>
               </div>
-              <div class="highlight-item">
-                <span class="highlight-label">Scope:</span>
-                <span class="highlight-val">Command queues, refresh sched, AXI translation</span>
-              </div>
-              <div class="highlight-item">
-                <span class="highlight-label">Leadership:</span>
-                <span class="highlight-val">Guiding ~50 hardware engineers</span>
-              </div>
-            </div>
-            <div class="project-footer">
-              <div class="card-tags">
-                <span class="tag">DDR Subsystem</span>
-                <span class="tag">AXI4</span>
-                <span class="tag">Scheduling</span>
-                <span class="tag">ADN Semicon</span>
-              </div>
-              <span class="view-details-cta">
-                View Architecture
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </span>
-            </div>
-          </div>
+              <h3 class="proj-card-title">
+                Squared Studio Open Hardware &amp; RISC-V Blocks
+              </h3>
+              <p class="proj-card-desc">
+                Open-source hardware ecosystem providing reusable SystemVerilog
+                primitives, parameterizable FIFOs, and modular RISC-V compute
+                elements.
+              </p>
 
-          <!-- Project 6: Dual-FPGA Emulation Subsystem -->
-          <div class="project-card glass-card spotlight-card" onclick="openProjectModal('fpga-emulation')">
-            <div class="card-chip-badge">EMULATION</div>
-            <div class="project-header">
-              <div class="project-num">PRJ-06</div>
-              <h3 class="project-title">Multi-FPGA Partition & Shared Host Emulation</h3>
-              <p class="project-summary">Over-capacity SoC emulation framework deploying multi-FPGA partitioning with virtual bidirectional synchronous communication over shared host memory.</p>
-            </div>
-            <div class="project-highlights">
-              <div class="highlight-item">
-                <span class="highlight-label">Framework:</span>
-                <span class="highlight-val">Dual Xilinx FPGA Co-Simulation</span>
+              <div class="proj-key-metrics">
+                <div class="p-metric">
+                  <span class="p-metric-label">Initiative</span>
+                  <span class="p-metric-val">squared-studio.cc</span>
+                </div>
+                <div class="p-metric">
+                  <span class="p-metric-label">Role</span>
+                  <span class="p-metric-val">Founder &amp; Maintainer</span>
+                </div>
+                <div class="p-metric">
+                  <span class="p-metric-label">Availability</span>
+                  <span class="p-metric-val">Open GitHub Repos</span>
+                </div>
               </div>
-              <div class="highlight-item">
-                <span class="highlight-label">Transport:</span>
-                <span class="highlight-val">Virtual shared memory synchronization</span>
-              </div>
-              <div class="highlight-item">
-                <span class="highlight-label">Outcome:</span>
-                <span class="highlight-val">Zero-deadlock pre-silicon validation</span>
-              </div>
-            </div>
-            <div class="project-footer">
-              <div class="card-tags">
-                <span class="tag">Xilinx Vivado</span>
-                <span class="tag">Multi-FPGA</span>
-                <span class="tag">Hardware Emulation</span>
-              </div>
-              <span class="view-details-cta">
-                View Architecture
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- PUBLICATIONS & RESEARCH -->
-    <section id="publications" class="section section-darker">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag">// 05 &bull; SCHOLARLY INQUIRY</span>
-          <h2 class="section-title">Publications & Academic Research</h2>
-          <p class="section-subtitle">Author of 8 peer-reviewed research papers investigating advanced semiconductor devices and modular computing.</p>
-        </div>
-
-        <div class="grid grid-2-col">
-          <div class="pub-card glass-card spotlight-card">
-            <div class="pub-badge">IEEE NAP &bull; NOV 2020</div>
-            <h3 class="pub-title">Comparative Performance Analysis of TMD based Multi-Bridge Channel Field Effect Transistor</h3>
-            <p class="pub-authors">Foez Ahmed et al. &mdash; IEEE International Conference on "Nanomaterials: Applications & Properties"</p>
-            <p class="pub-abstract">Rigorous quantum mechanical and transport analysis of Transition Metal Dichalcogenide (TMD) channel transistors, evaluating sub-5nm scaling dynamics, leakage suppression, and multi-bridge gate electrostatic control.</p>
-            <div class="pub-meta">
-              <span class="tag">Semiconductor Physics</span>
-              <span class="tag">TMD Nano-FET</span>
-              <span class="tag">Quantum Simulation</span>
+              <div class="proj-card-footer">
+                <div class="proj-tags">
+                  <span class="chip-tag">Open Hardware</span>
+                  <span class="chip-tag">RISC-V ALU</span>
+                  <span class="chip-tag">SystemVerilog</span>
+                </div>
+                <span class="explore-link">
+                  <span>Show details</span>
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.2"
+                  >
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </span>
+              </div>
             </div>
-          </div>
 
-          <div class="pub-card glass-card spotlight-card">
-            <div class="pub-badge">IEEE RAAICON &bull; DEC 2021</div>
-            <h3 class="pub-title">A Comprehensive Study and Modern Take on Intel 8086 like Modular Trainer Board System</h3>
-            <p class="pub-authors">Foez Ahmed et al. &mdash; IEEE Conference on Robotics, Automation, Artificial-intelligence and Internet-of-Things</p>
-            <p class="pub-abstract">Modularized, extensible hardware trainer platform modernizing classical microprocessor architecture education with integrated real-time bus analyzers, peripheral modules, and low-latency debug links.</p>
-            <div class="pub-meta">
-              <span class="tag">Hardware Architecture</span>
-              <span class="tag">Bus Interface</span>
-              <span class="tag">Trainer System</span>
+            <!-- Project 5: Memory Controller -->
+            <div
+              class="project-showcase-card"
+              onclick="openProjectModal('memory-controller')"
+            >
+              <div class="proj-badge-row">
+                <span class="pill-tag pill-tag-blue">IP Microarchitecture</span>
+                <span class="proj-number">05</span>
+              </div>
+              <h3 class="proj-card-title">
+                Custom Memory Controller Microarchitecture
+              </h3>
+              <p class="proj-card-desc">
+                Architectural specification, queue scheduling, bank conflict
+                reduction, and AXI fabric integration of high-bandwidth memory
+                controller IP at ADN Semiconductors.
+              </p>
+
+              <div class="proj-key-metrics">
+                <div class="p-metric">
+                  <span class="p-metric-label">Domain</span>
+                  <span class="p-metric-val">Memory IP</span>
+                </div>
+                <div class="p-metric">
+                  <span class="p-metric-label">Team Scale</span>
+                  <span class="p-metric-val">~50 Engineers</span>
+                </div>
+                <div class="p-metric">
+                  <span class="p-metric-label">Interface</span>
+                  <span class="p-metric-val">Native AXI4 to DFI</span>
+                </div>
+              </div>
+
+              <div class="proj-card-footer">
+                <div class="proj-tags">
+                  <span class="chip-tag">Memory Subsystem</span>
+                  <span class="chip-tag">AXI4</span>
+                  <span class="chip-tag">Scheduling</span>
+                </div>
+                <span class="explore-link">
+                  <span>Show details</span>
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.2"
+                  >
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </span>
+              </div>
+            </div>
+
+            <!-- Project 6: FPGA Emulation -->
+            <div
+              class="project-showcase-card"
+              onclick="openProjectModal('fpga-emulation')"
+            >
+              <div class="proj-badge-row">
+                <span class="pill-tag pill-tag-purple">Hardware Emulation</span>
+                <span class="proj-number">06</span>
+              </div>
+              <h3 class="proj-card-title">
+                Multi-FPGA Partition &amp; Host Emulation
+              </h3>
+              <p class="proj-card-desc">
+                Over-capacity SoC emulation framework deploying multi-FPGA
+                partitioning with virtual bidirectional synchronous
+                communication over shared host memory.
+              </p>
+
+              <div class="proj-key-metrics">
+                <div class="p-metric">
+                  <span class="p-metric-label">Platform</span>
+                  <span class="p-metric-val">Dual Virtex UltraScale+</span>
+                </div>
+                <div class="p-metric">
+                  <span class="p-metric-label">Transport</span>
+                  <span class="p-metric-val">Shared Host Memory</span>
+                </div>
+                <div class="p-metric">
+                  <span class="p-metric-label">Validation</span>
+                  <span class="p-metric-val">Zero-Deadlock Linux Boot</span>
+                </div>
+              </div>
+
+              <div class="proj-card-footer">
+                <div class="proj-tags">
+                  <span class="chip-tag">Xilinx Vivado</span>
+                  <span class="chip-tag">Multi-FPGA</span>
+                  <span class="chip-tag">Emulation</span>
+                </div>
+                <span class="explore-link">
+                  <span>Show details</span>
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.2"
+                  >
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </span>
+              </div>
             </div>
           </div>
         </div>
+      </section>
 
-        <!-- Academic Degree & Honor Bar -->
-        <div class="edu-card glass-card spotlight-card mt-8">
-          <div class="edu-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+      <!-- SECTION 04: TECHNICAL SKILLS ARSENAL -->
+      <section id="skills" class="section section-tinted">
+        <div class="container">
+          <div class="section-badge-row">
+            <span class="section-category-badge">Skills &bull; Toolchains</span>
           </div>
-          <div class="edu-details">
-            <div class="edu-header">
-              <h3 class="edu-degree">Bachelor of Science in Electrical and Electronic Engineering (B.Sc. EEE)</h3>
-              <span class="edu-date">Graduated Feb 2022</span>
+          <h2 class="section-title">
+            Technical Skills &amp; Semiconductor Stack
+          </h2>
+          <p class="section-subtitle">
+            High-fidelity mastery spanning hardware description, verification
+            methodologies, protocols, and industry EDA tool suites.
+          </p>
+
+          <div class="skills-showcase">
+            <!-- Card 1 -->
+            <div class="skill-group-card">
+              <div class="skill-group-icon blue-bg">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#1a73e8"
+                  stroke-width="2"
+                >
+                  <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                  <rect x="9" y="9" width="6" height="6"></rect>
+                  <line x1="9" y1="1" x2="9" y2="4"></line>
+                  <line x1="15" y1="1" x2="15" y2="4"></line>
+                  <line x1="9" y1="20" x2="9" y2="23"></line>
+                  <line x1="15" y1="20" x2="15" y2="23"></line>
+                  <line x1="20" y1="9" x2="23" y2="9"></line>
+                  <line x1="20" y1="14" x2="23" y2="14"></line>
+                  <line x1="1" y1="9" x2="4" y2="9"></line>
+                  <line x1="1" y1="14" x2="4" y2="14"></line>
+                </svg>
+              </div>
+              <h3 class="skill-group-title">Architecture &amp; RTL</h3>
+              <p class="skill-group-desc">
+                Microarchitecture specification, pipelining, clock gating, and
+                synthesis-ready RTL implementation.
+              </p>
+              <div class="skill-chips-wrap">
+                <span class="pill-chip pill-chip-primary">SystemVerilog</span>
+                <span class="pill-chip pill-chip-primary"
+                  >Verilog (IEEE 1364)</span
+                >
+                <span class="pill-chip">RV64GV RISC-V</span>
+                <span class="pill-chip">VHDL</span>
+                <span class="pill-chip">Chisel HDL</span>
+                <span class="pill-chip">Foundry SRAM / PLLs</span>
+                <span class="pill-chip">Clock / Reset Trees</span>
+              </div>
             </div>
-            <p class="edu-school">Shahjalal University of Science and Technology (SUST), Sylhet, Bangladesh</p>
-            <p class="edu-focus">Graduated with distinction. Core curriculum: VLSI Design, Advanced Digital Electronics, Computer Architecture, Embedded Systems, Semiconductor Physics, and Signal Processing.</p>
+
+            <!-- Card 2 -->
+            <div class="skill-group-card">
+              <div class="skill-group-icon green-bg">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#137333"
+                  stroke-width="2"
+                >
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  <polyline points="9 12 11 14 15 10"></polyline>
+                </svg>
+              </div>
+              <h3 class="skill-group-title">Verification &amp; Quality</h3>
+              <p class="skill-group-desc">
+                Advanced constraint-random verification, formal assertions, and
+                functional coverage closure.
+              </p>
+              <div class="skill-chips-wrap">
+                <span class="pill-chip pill-chip-primary">UVM Methodology</span>
+                <span class="pill-chip pill-chip-primary"
+                  >SystemVerilog Assertions (SVA)</span
+                >
+                <span class="pill-chip">Class-Based VIP Design</span>
+                <span class="pill-chip">Functional Coverage Models</span>
+                <span class="pill-chip">CoCoTB Python Tests</span>
+                <span class="pill-chip">Directed &amp; Stress Tests</span>
+                <span class="pill-chip">Assembly / C Boot Tests</span>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="skill-group-card">
+              <div class="skill-group-icon amber-bg">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#b06000"
+                  stroke-width="2"
+                >
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                </svg>
+              </div>
+              <h3 class="skill-group-title">Busses &amp; Memory Systems</h3>
+              <p class="skill-group-desc">
+                NoC fabric optimization, cache coherency protocols, and
+                Memory controller subsystems.
+              </p>
+              <div class="skill-chips-wrap">
+                <span class="pill-chip pill-chip-primary"
+                  >AMBA AXI4 / AXI-Lite</span
+                >
+                <span class="pill-chip pill-chip-primary"
+                  >Directory Cache Coherence</span
+                >
+                <span class="pill-chip">Memory Subsystems</span>
+                <span class="pill-chip">AHB / APB / OBI</span>
+                <span class="pill-chip">AXI ID &amp; Data Conversion</span>
+                <span class="pill-chip">UART / SPI / I2C / I2S</span>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="skill-group-card">
+              <div class="skill-group-icon purple-bg">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#7627bb"
+                  stroke-width="2"
+                >
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                  <polyline points="2 17 12 22 22 17"></polyline>
+                  <polyline points="2 12 12 17 22 12"></polyline>
+                </svg>
+              </div>
+              <h3 class="skill-group-title">EDA Toolchains &amp; Emulation</h3>
+              <p class="skill-group-desc">
+                Commercial simulation engines, FPGA synthesis, timing analysis,
+                and hardware debugging.
+              </p>
+              <div class="skill-chips-wrap">
+                <span class="pill-chip pill-chip-primary">Synopsys VCS</span>
+                <span class="pill-chip pill-chip-primary"
+                  >Siemens QuestaSim</span
+                >
+                <span class="pill-chip">Xilinx Vivado ML</span>
+                <span class="pill-chip">Multi-FPGA Partitioning</span>
+                <span class="pill-chip">Static Timing Analysis (STA)</span>
+                <span class="pill-chip">Icarus Verilog &amp; GTKWave</span>
+              </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="skill-group-card">
+              <div class="skill-group-icon blue-bg">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#1a73e8"
+                  stroke-width="2"
+                >
+                  <polyline points="16 18 22 12 16 6"></polyline>
+                  <polyline points="8 6 2 12 8 18"></polyline>
+                </svg>
+              </div>
+              <h3 class="skill-group-title">Firmware &amp; Automation</h3>
+              <p class="skill-group-desc">
+                Bare-metal bringup, regression orchestration scripts, and
+                automated CI/CD hardware testing pipelines.
+              </p>
+              <div class="skill-chips-wrap">
+                <span class="pill-chip pill-chip-primary">C / Embedded C</span>
+                <span class="pill-chip pill-chip-primary"
+                  >Python &amp; PyTest</span
+                >
+                <span class="pill-chip">RISC-V ISA Assembly</span>
+                <span class="pill-chip">Bash Scripting</span>
+                <span class="pill-chip">GNU Makefiles</span>
+                <span class="pill-chip">Git / CI/CD Workflows</span>
+              </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="skill-group-card">
+              <div class="skill-group-icon green-bg">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#137333"
+                  stroke-width="2"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                  <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                  <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                </svg>
+              </div>
+              <h3 class="skill-group-title">Semiconductor Research</h3>
+              <p class="skill-group-desc">
+                Solid-state physics, quantum nanoscale transport, and advanced
+                device electrostatic modeling.
+              </p>
+              <div class="skill-chips-wrap">
+                <span class="pill-chip pill-chip-primary"
+                  >MBCFET Transistors</span
+                >
+                <span class="pill-chip pill-chip-primary"
+                  >TMD Nanomaterials</span
+                >
+                <span class="pill-chip">Sub-5nm Scaling</span>
+                <span class="pill-chip">VLSI Circuit Design</span>
+                <span class="pill-chip">Signal Integrity</span>
+                <span class="pill-chip">Modular Hardware Systems</span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- CONTACT SECTION -->
-    <section id="contact" class="section">
-      <div class="container">
-        <div class="section-header text-center">
-          <span class="section-tag">// 06 &bull; REACH OUT</span>
+      <!-- SECTION 05: PUBLICATIONS & ACADEMIC DEGREE -->
+      <section id="publications" class="section">
+        <div class="container">
+          <div class="section-badge-row">
+            <span class="section-category-badge"
+              >Research &bull; IEEE Publications</span
+            >
+          </div>
+          <h2 class="section-title">Publications &amp; Academic Background</h2>
+          <p class="section-subtitle">
+            Author of 8 peer-reviewed research papers investigating advanced
+            semiconductor devices and modular computing.
+          </p>
+
+          <div class="pubs-container">
+            <!-- Paper 1 -->
+            <div class="pub-card">
+              <div class="pub-header">
+                <span class="pill-tag pill-tag-blue"
+                  >IEEE NAP &bull; Nov 2020</span
+                >
+                <span class="pub-cite">Peer-Reviewed Conference</span>
+              </div>
+              <h3 class="pub-title">
+                Comparative Performance Analysis of TMD based Multi-Bridge
+                Channel Field Effect Transistor
+              </h3>
+              <p class="pub-authors">
+                Foez Ahmed et al. &mdash; IEEE International Conference on
+                "Nanomaterials: Applications &amp; Properties"
+              </p>
+              <p class="pub-abstract">
+                Rigorous quantum mechanical and transport analysis of Transition
+                Metal Dichalcogenide (TMD) channel transistors, evaluating
+                sub-5nm scaling dynamics, leakage suppression, and multi-bridge
+                gate electrostatic control.
+              </p>
+              <div class="pub-tags">
+                <span class="chip-tag">Semiconductor Physics</span>
+                <span class="chip-tag">TMD Nano-FET</span>
+                <span class="chip-tag">MBCFET</span>
+                <span class="chip-tag">Quantum Simulation</span>
+              </div>
+            </div>
+
+            <!-- Paper 2 -->
+            <div class="pub-card">
+              <div class="pub-header">
+                <span class="pill-tag pill-tag-green"
+                  >IEEE RAAICON &bull; Dec 2021</span
+                >
+                <span class="pub-cite">Peer-Reviewed Conference</span>
+              </div>
+              <h3 class="pub-title">
+                A Comprehensive Study and Modern Take on Intel 8086 like Modular
+                Trainer Board System
+              </h3>
+              <p class="pub-authors">
+                Foez Ahmed et al. &mdash; IEEE Conference on Robotics,
+                Automation, Artificial-intelligence and Internet-of-Things
+              </p>
+              <p class="pub-abstract">
+                Modularized, extensible hardware trainer platform modernizing
+                classical microprocessor architecture education with integrated
+                real-time bus analyzers, peripheral modules, and low-latency
+                debug links.
+              </p>
+              <div class="pub-tags">
+                <span class="chip-tag">Hardware Architecture</span>
+                <span class="chip-tag">Bus Interface</span>
+                <span class="chip-tag">Microprocessor Systems</span>
+                <span class="chip-tag">Trainer Hardware</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Academic Degree Card -->
+          <div class="degree-card">
+            <div class="degree-icon">
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#1a73e8"
+                stroke-width="2"
+              >
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+              </svg>
+            </div>
+            <div class="degree-content">
+              <div class="degree-header">
+                <h3 class="degree-title">
+                  Bachelor of Science in Electrical and Electronic Engineering
+                  (B.Sc. EEE)
+                </h3>
+                <span class="degree-date"
+                  >Graduated Feb 2022 &bull; Distinction</span
+                >
+              </div>
+              <p class="degree-institution">
+                Shahjalal University of Science and Technology (SUST), Sylhet,
+                Bangladesh
+              </p>
+              <p class="degree-details">
+                Graduated with distinction. Core curriculum: VLSI Design,
+                Advanced Digital Electronics, Computer Architecture, Embedded
+                Systems, Semiconductor Physics, and Signal Processing.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 06: CONTACT & COMMUNICATION -->
+      <section id="contact" class="section section-tinted">
+        <div class="container">
+          <div class="section-badge-row">
+            <span class="section-category-badge">Connect &bull; Dialogue</span>
+          </div>
           <h2 class="section-title">Let&rsquo;s Build Next-Gen Silicon</h2>
-          <p class="section-subtitle">Interested in collaborating on RISC-V SoC architecture, UVM verification, or open-source hardware? Reach out directly.</p>
-        </div>
+          <p class="section-subtitle">
+            Interested in collaborating on RISC-V SoC architecture, UVM
+            verification, or open-source hardware? Reach out directly.
+          </p>
 
-        <div class="contact-grid">
-          <!-- Direct Channels -->
-          <div class="contact-info-column">
-            <div class="contact-info-card glass-card spotlight-card">
-              <h3 class="card-title">Direct Communication</h3>
-              <p class="card-sub">Available for technical discussions, consulting inquiries, and hardware collaborations.</p>
+          <div class="contact-card-wrapper">
+            <!-- Left: Direct Channels -->
+            <div class="contact-channels">
+              <h3 class="contact-heading">Direct Channels</h3>
+              <p class="contact-desc">
+                Available for architecture consultation, verification reviews,
+                and silicon collaborations.
+              </p>
 
-              <div class="contact-methods">
-                <!-- Email -->
-                <div class="method-item">
-                  <div class="method-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <div class="channel-items">
+                <div class="channel-item">
+                  <div class="channel-icon">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#1a73e8"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                      ></path>
+                      <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
                   </div>
-                  <div class="method-details">
-                    <span class="method-label">Direct Email</span>
-                    <a href="mailto:foez.official@gmail.com" class="method-val">foez.official@gmail.com</a>
+                  <div class="channel-info">
+                    <span class="ch-label">Email Address</span>
+                    <div class="ch-row">
+                      <a href="mailto:foez.official@gmail.com" class="ch-val"
+                        >foez.official@gmail.com</a
+                      >
+                      <button
+                        class="copy-pill-btn"
+                        id="copy-email-btn"
+                        title="Copy email address"
+                        aria-label="Copy Email"
+                      >
+                        Copy
+                      </button>
+                    </div>
                   </div>
-                  <button class="copy-btn" id="copy-email-btn" title="Copy email address" aria-label="Copy Email">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                  </button>
                 </div>
 
-                <!-- Phone -->
-                <div class="method-item">
-                  <div class="method-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                <div class="channel-item">
+                  <div class="channel-icon">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#1a73e8"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                      ></path>
+                    </svg>
                   </div>
-                  <div class="method-details">
-                    <span class="method-label">Direct Phone</span>
-                    <a href="tel:+8801746468041" class="method-val">+880 1746-468041</a>
+                  <div class="channel-info">
+                    <span class="ch-label">Telephone</span>
+                    <a href="tel:+8801746468041" class="ch-val"
+                      >+880 1746-468041</a
+                    >
                   </div>
                 </div>
 
-                <!-- Location -->
-                <div class="method-item">
-                  <div class="method-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <div class="channel-item">
+                  <div class="channel-icon">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#1a73e8"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
+                      ></path>
+                      <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
                   </div>
-                  <div class="method-details">
-                    <span class="method-label">Location</span>
-                    <span class="method-val">Dhaka, Bangladesh (UTC+6)</span>
+                  <div class="channel-info">
+                    <span class="ch-label">Location</span>
+                    <span class="ch-val">Dhaka, Bangladesh &bull; UTC+6</span>
                   </div>
                 </div>
               </div>
 
-              <!-- Socials Box -->
-              <div class="contact-links-grid">
-                <a href="https://github.com/foez-ahmed" target="_blank" rel="noopener noreferrer" class="link-btn">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                  <span>GitHub</span>
-                </a>
-                <a href="https://linkedin.com/in/foez-ahmed-84636b137" target="_blank" rel="noopener noreferrer" class="link-btn">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                  <span>LinkedIn</span>
-                </a>
-                <a href="https://adnsemicon.com/people/foez-ahmed.html" target="_blank" rel="noopener noreferrer" class="link-btn">
-                  <span class="badge-dot cyan"></span>
+              <!-- Profile Pills -->
+              <div class="contact-profiles-bar">
+                <a
+                  href="https://adnsemicon.com/people/foez-ahmed.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="profile-card-chip"
+                >
+                  <span class="chip-dot blue"></span>
                   <span>ADN Profile</span>
                 </a>
-                <a href="https://squared-studio.cc/people/foez-ahmed.html" target="_blank" rel="noopener noreferrer" class="link-btn">
-                  <span class="badge-dot amber"></span>
+                <a
+                  href="https://squared-studio.cc/people/foez-ahmed.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="profile-card-chip"
+                >
+                  <span class="chip-dot amber"></span>
                   <span>Squared Studio</span>
+                </a>
+                <a
+                  href="https://github.com/foez-ahmed"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="profile-card-chip"
+                >
+                  <span>GitHub</span>
+                </a>
+                <a
+                  href="https://linkedin.com/in/foez-ahmed-84636b137"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="profile-card-chip"
+                >
+                  <span>LinkedIn</span>
                 </a>
               </div>
             </div>
-          </div>
 
-          <!-- Interactive Message Form -->
-          <div class="contact-form-column">
-            <form id="contact-form" class="contact-form glass-card spotlight-card">
-              <h3 class="card-title">Send a Message</h3>
-              <p class="card-sub">Send a message and it will open directly in your mail client or generate a transmission packet.</p>
+            <!-- Right: Interactive Transmission Form -->
+            <div class="contact-form-side">
+              <form id="contact-form" class="clean-form">
+                <h3 class="form-title">Send a Message</h3>
+                <p class="form-subtitle">
+                  Fill out the details below to open directly in your mail
+                  client.
+                </p>
 
-              <div class="form-group">
-                <label for="form-name">Full Name</label>
-                <input type="text" id="form-name" required placeholder="e.g. Linus Torvalds" class="form-input">
-              </div>
+                <div class="form-group">
+                  <label for="form-name" class="form-label">Full Name</label>
+                  <input
+                    type="text"
+                    id="form-name"
+                    required
+                    placeholder="e.g. Linus Torvalds"
+                    class="form-input"
+                  />
+                </div>
 
-              <div class="form-group">
-                <label for="form-email">Work Email</label>
-                <input type="email" id="form-email" required placeholder="e.g. engineer@semicon.com" class="form-input">
-              </div>
+                <div class="form-group">
+                  <label for="form-email" class="form-label">Work Email</label>
+                  <input
+                    type="email"
+                    id="form-email"
+                    required
+                    placeholder="e.g. engineer@semicon.com"
+                    class="form-input"
+                  />
+                </div>
 
-              <div class="form-group">
-                <label for="form-topic">Inquiry Focus</label>
-                <select id="form-topic" class="form-input">
-                  <option value="riscv">RISC-V SoC Architecture & Tapeout</option>
-                  <option value="uvm">Verification / UVM / VIP Development</option>
-                  <option value="opensource">Squared Studio / Open-Source Collaboration</option>
-                  <option value="consulting">Technical Consulting / Engineering Leadership</option>
-                  <option value="other">General Inquiries</option>
-                </select>
-              </div>
+                <div class="form-group">
+                  <label for="form-topic" class="form-label"
+                    >Inquiry Focus</label
+                  >
+                  <select id="form-topic" class="form-input select-input">
+                    <option value="riscv">
+                      RISC-V SoC Architecture &amp; Tape-Out
+                    </option>
+                    <option value="uvm">
+                      Verification / UVM / VIP Development
+                    </option>
+                    <option value="opensource">
+                      Squared Studio / Open-Source Collaboration
+                    </option>
+                    <option value="consulting">
+                      Technical Consulting / Engineering Leadership
+                    </option>
+                    <option value="other">General Inquiries</option>
+                  </select>
+                </div>
 
-              <div class="form-group">
-                <label for="form-message">Message</label>
-                <textarea id="form-message" rows="4" required placeholder="Tell me about your hardware project, architecture requirements, or timeline..." class="form-input"></textarea>
-              </div>
+                <div class="form-group">
+                  <label for="form-message" class="form-label">Message</label>
+                  <textarea
+                    id="form-message"
+                    rows="4"
+                    required
+                    placeholder="Tell me about your hardware project, architecture requirements, or timeline..."
+                    class="form-input textarea-input"
+                  ></textarea>
+                </div>
 
-              <button type="submit" class="btn btn-primary btn-block">
-                <span>Transmit Message</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-              </button>
-            </form>
+                <button type="submit" class="btn btn-pill-primary btn-block">
+                  <span>Send Message</span>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.2"
+                  >
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                  </svg>
+                </button>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
 
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="container footer-content">
-      <div class="footer-left">
-        <div class="logo-chip">
-          <span class="chip-dot"></span>
-          <span class="chip-code">FA//0x01</span>
+    <!-- CLEAN WHITE FOOTER -->
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <div class="footer-left">
+          <span class="footer-logo">Foez Ahmed</span>
+          <span class="footer-copy"
+            >&copy; 2026 Foez Ahmed &bull; Lead RTL Design &amp; Verification
+            Engineer.</span
+          >
         </div>
-        <p class="footer-copy">&copy; 2026 Foez Ahmed. RTL Design & Verification Engineer. Optimized for GitHub Pages.</p>
+        <div class="footer-right">
+          <a href="#hero" class="back-to-top">
+            <span>Back to Top</span>
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+            >
+              <polyline points="18 15 12 9 6 15"></polyline>
+            </svg>
+          </a>
+        </div>
       </div>
-      <div class="footer-right">
-        <a href="#hero" class="back-to-top">
-          <span>Back to Top</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg>
-        </a>
+    </footer>
+
+    <!-- MODAL: PROJECT ARCHITECTURAL DETAILS -->
+    <div
+      class="modal-overlay"
+      id="project-modal"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div class="modal-card">
+        <button
+          class="modal-close-btn"
+          id="modal-close"
+          aria-label="Close modal"
+        >
+          &times;
+        </button>
+        <div class="modal-body" id="modal-content">
+          <!-- Injected via JavaScript -->
+        </div>
       </div>
     </div>
-  </footer>
 
-  <!-- MODAL: PROJECT ARCHITECTURE DETAILS -->
-  <div class="modal-overlay" id="project-modal" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="modal-container glass-card">
-      <button class="modal-close-btn" id="modal-close" aria-label="Close modal">&times;</button>
-      <div class="modal-body" id="modal-content">
-        <!-- Injected via JavaScript -->
-      </div>
-    </div>
-  </div>
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
 
-  <!-- TOAST NOTIFICATION CONTAINER -->
-  <div id="toast-container" class="toast-container" aria-live="polite"></div>
-
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
-

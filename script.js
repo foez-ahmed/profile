@@ -1,19 +1,17 @@
 /**
- * FOEZ AHMED - LEAD RTL DESIGN & VERIFICATION PORTFOLIO
- * Interactive Silicon Engine & Reactive UI Controller
+ * FOEZ AHMED — LEAD RTL DESIGN & VERIFICATION PORTFOLIO
+ * Google Antigravity Inspired Interactive White Theme Engine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
   initSiliconCanvas();
-  initSpotlightCards();
-  initSkillFilters();
   initModals();
   initContactAndCopy();
   initNavigation();
 });
 
 /* ==========================================================================
-   1. SILICON CANVAS: PCB & METAL TRACE EMITTER (Interactive Background)
+   1. SILICON CANVAS: LIGHT THEME PCB & TRACE EMITTER
    ========================================================================== */
 function initSiliconCanvas() {
   const canvas = document.getElementById('silicon-canvas');
@@ -35,9 +33,8 @@ function initSiliconCanvas() {
     mouse.y = e.clientY;
   });
 
-  // Generate trace network
   const traces = [];
-  const traceCount = Math.floor(Math.min(width, height) / 35);
+  const traceCount = Math.floor(Math.min(width, height) / 36);
 
   class TraceNode {
     constructor() {
@@ -48,12 +45,13 @@ function initSiliconCanvas() {
       this.x = Math.random() * width;
       this.y = Math.random() * height;
       this.length = 80 + Math.random() * 140;
-      // Traces route at 0, 45, or 90 degree semiconductor angles
+      // Traces route at semiconductor angles (0, 45, 90, 135 deg)
       const angles = [0, Math.PI / 4, Math.PI / 2, (3 * Math.PI) / 4, Math.PI];
       this.angle = angles[Math.floor(Math.random() * angles.length)];
       this.speed = 0.5 + Math.random() * 1.2;
       this.progress = Math.random();
-      this.color = Math.random() > 0.3 ? 'rgba(0, 242, 254, ' : 'rgba(56, 189, 248, ';
+      // Google blue & cyan pulse colors for light background
+      this.color = Math.random() > 0.4 ? 'rgba(26, 115, 232, ' : 'rgba(0, 180, 216, ';
       this.viaRadius = 1.5 + Math.random() * 2;
     }
 
@@ -68,36 +66,37 @@ function initSiliconCanvas() {
       const endX = this.x + Math.cos(this.angle) * this.length;
       const endY = this.y + Math.sin(this.angle) * this.length;
 
-      // Draw static subtle trace line
+      // Draw subtle slate-gray trace line
       ctx.beginPath();
       ctx.moveTo(this.x, this.y);
       ctx.lineTo(endX, endY);
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+      ctx.strokeStyle = 'rgba(74, 85, 104, 0.04)';
       ctx.lineWidth = 1;
       ctx.stroke();
 
-      // Draw via pads at ends
+      // Via pads
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.viaRadius, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(0, 242, 254, 0.08)';
+      ctx.fillStyle = 'rgba(26, 115, 232, 0.08)';
       ctx.fill();
 
-      // Calculate electron pulse along trace
+      // Electron pulse calculation
       const currentX = this.x + Math.cos(this.angle) * (this.length * this.progress);
       const currentY = this.y + Math.sin(this.angle) * (this.length * this.progress);
 
-      // Distance to mouse for reactivity
       const dist = Math.hypot(mouse.x - currentX, mouse.y - currentY);
       const mouseInfluence = Math.max(0, 1 - dist / 220);
 
-      const pulseAlpha = 0.15 + mouseInfluence * 0.7;
+      const pulseAlpha = 0.2 + mouseInfluence * 0.75;
       const pulseSize = 2 + mouseInfluence * 3;
 
       ctx.beginPath();
       ctx.arc(currentX, currentY, pulseSize, 0, Math.PI * 2);
       ctx.fillStyle = `${this.color}${pulseAlpha})`;
-      ctx.shadowBlur = 8 * mouseInfluence;
-      ctx.shadowColor = '#00f2fe';
+      if (mouseInfluence > 0.1) {
+        ctx.shadowBlur = 10 * mouseInfluence;
+        ctx.shadowColor = '#1a73e8';
+      }
       ctx.fill();
       ctx.shadowBlur = 0;
     }
@@ -115,26 +114,6 @@ function initSiliconCanvas() {
   function animate() {
     ctx.clearRect(0, 0, width, height);
 
-    // Subtle IC grid alignment
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.015)';
-    ctx.lineWidth = 1;
-    const gridSize = 80;
-    const startX = 0;
-    const startY = 0;
-
-    for (let x = startX; x < width; x += gridSize) {
-      ctx.beginPath();
-      ctx.moveTo(x, 0);
-      ctx.lineTo(x, height);
-      ctx.stroke();
-    }
-    for (let y = startY; y < height; y += gridSize) {
-      ctx.beginPath();
-      ctx.moveTo(0, y);
-      ctx.lineTo(width, y);
-      ctx.stroke();
-    }
-
     traces.forEach((trace) => {
       trace.update();
       trace.draw();
@@ -147,54 +126,12 @@ function initSiliconCanvas() {
 }
 
 /* ==========================================================================
-   2. REACTIVE SPOTLIGHT CARDS (Apple/Antigravity Cursor Illumination)
-   ========================================================================== */
-function initSpotlightCards() {
-  const cards = document.querySelectorAll('.spotlight-card');
-  cards.forEach((card) => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
-    });
-  });
-}
-
-/* ==========================================================================
-   3. SKILL CATEGORY FILTERING
-   ========================================================================== */
-function initSkillFilters() {
-  const tabs = document.querySelectorAll('.skill-tab');
-  const cards = document.querySelectorAll('.skill-card');
-
-  tabs.forEach((tab) => {
-    tab.addEventListener('click', () => {
-      tabs.forEach((t) => t.classList.remove('active'));
-      tab.classList.add('active');
-
-      const filter = tab.getAttribute('data-filter');
-
-      cards.forEach((card) => {
-        const cat = card.getAttribute('data-category');
-        if (filter === 'all' || cat === filter) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
-        }
-      });
-    });
-  });
-}
-
-/* ==========================================================================
-   4. PROJECT DETAILS MODAL & DATA
+   2. PROJECT DETAILS MODAL & DATA
    ========================================================================== */
 const projectDetails = {
   'rv64-soc': {
     title: 'Quad-Core RV64GV SoC Architecture & Tape-Out',
-    badge: '12nm TSMC Tape-Out • 1.5 GHz',
+    badge: '12nm TSMC Tape-Out • 1.5 GHz Target',
     tags: ['RISC-V', '12nm ASIC', 'AMBA AXI4', 'L1/L2 Caches', 'Assembly/C Testing'],
     content: `
       <h4>Architecture Specification & Leadership</h4>
@@ -203,7 +140,7 @@ const projectDetails = {
       <h4>Hierarchical Interconnect Partitioning</h4>
       <p>Co-proposed and architected the strategic partitioning of the AXI fabric into two separate, optimized routing sub-networks:</p>
       <ul>
-        <li><strong>Low-Latency High-Bandwidth Compute Fabric:</strong> Dedicated to core L1 caches, shared 2MB L2 cache, and DDR controllers with concurrent out-of-order transaction pipelining.</li>
+        <li><strong>Low-Latency High-Bandwidth Compute Fabric:</strong> Dedicated to core L1 caches, shared 2MB L2 cache, and Memory controllers with concurrent out-of-order transaction pipelining.</li>
         <li><strong>System Peripheral Network:</strong> Isolated low-frequency traffic (UART, SPI, I2C, I2S) preventing head-of-line blocking on compute streams.</li>
       </ul>
       <p>Resolved AXI ID-width compounding across hierarchical crossbars by specifying precision ID-width converters and revalidating transaction determinism.</p>
@@ -240,7 +177,7 @@ const projectDetails = {
   'coherent-cache': {
     title: 'Custom Directory-Based Coherent Cache Protocol',
     badge: 'Cache Subsystem • Memory Hierarchy',
-    tags: ['Cache Coherence', 'Directory Protocol', 'SRAM Blocks', 'Formal Verification'],
+    tags: ['Cache Coherence', 'Directory Protocol', 'SRAM Macros', 'Formal Verification'],
     content: `
       <h4>Protocol Definition & Microarchitecture</h4>
       <p>Owned the specification, microarchitecture, and verification of a proprietary directory-based cache coherence protocol designed for multi-core RISC-V compute nodes.</p>
@@ -268,18 +205,18 @@ const projectDetails = {
       <ul>
         <li><strong>squared-studio/common:</strong> A curated library of production-quality SystemVerilog design primitives, including parameterized synchronous/asynchronous FIFOs, round-robin arbiters, and clock domain crossing (CDC) synchronizers.</li>
         <li><strong>RISC-V Computational IP:</strong> Parameterized RV32/RV64 arithmetic logic units (ALU) organized cleanly by opcode decode slices, designed for synthesis compatibility.</li>
-        <li><strong>Community Mentorship:</strong> Guiding hundreds of hardware engineering students and engineers through RTL code reviews, verification challenges, and modern open-source toolchains (Icarus Verilog, Verilator, GTKWave).</li>
+        <li><strong>Community Mentorship:</strong> Guiding hundreds of hardware engineering students and engineers through RTL code reviews, verification challenges, and modern open-source toolchains.</li>
       </ul>
-      <p>Visit: <a href="https://squared-studio.cc" target="_blank" style="color:var(--primary-cyan)">squared-studio.cc</a> and <a href="https://github.com/foez-ahmed" target="_blank" style="color:var(--primary-cyan)">github.com/foez-ahmed</a></p>
+      <p>Visit: <a href="https://squared-studio.cc" target="_blank" style="color:var(--google-blue); font-weight:600;">squared-studio.cc</a> and <a href="https://github.com/foez-ahmed" target="_blank" style="color:var(--google-blue); font-weight:600;">github.com/foez-ahmed</a></p>
     `
   },
-  'ddr-controller': {
-    title: 'Custom High-Bandwidth DDR Controller Microarchitecture',
+  'memory-controller': {
+    title: 'Custom High-Bandwidth Memory Controller Microarchitecture',
     badge: 'ADN Semiconductors • Technical Lead',
-    tags: ['DDR Subsystem', 'AXI Integration', 'Command Queue', 'Technical Direction'],
+    tags: ['Memory Subsystem', 'AXI Integration', 'Command Queue', 'Technical Direction'],
     content: `
       <h4>High-Performance Memory Controller Subsystem</h4>
-      <p>Leading the architectural definition and AXI interconnect integration for a custom high-throughput DDR memory controller at <strong>ADN Semiconductors</strong>, providing technical leadership to a ~50-engineer organization.</p>
+      <p>Leading the architectural definition and AXI interconnect integration for a custom high-throughput Memory controller at <strong>ADN Semiconductors</strong>, providing technical leadership to a ~50-engineer organization.</p>
 
       <h4>Microarchitectural Innovations</h4>
       <ul>
@@ -313,15 +250,13 @@ function openProjectModal(projectId) {
   const data = projectDetails[projectId];
   if (!modal || !content || !data) return;
 
-  const tagsHtml = data.tags.map(t => `<span class="tag">${t}</span>`).join('');
+  const tagsHtml = data.tags.map(t => `<span class="chip-tag">${t}</span>`).join('');
 
   content.innerHTML = `
-    <div class="card-chip-badge cyan">${data.badge}</div>
-    <h2 style="font-size:1.75rem; margin-bottom:0.75rem; padding-right:2rem;">${data.title}</h2>
-    <div class="card-tags" style="margin-bottom:1.5rem;">${tagsHtml}</div>
-    <div style="font-size:0.96rem; line-height:1.7; color:var(--text-muted);">
-      ${data.content}
-    </div>
+    <div class="pill-tag pill-tag-blue" style="margin-bottom:0.75rem;">${data.badge}</div>
+    <h2>${data.title}</h2>
+    <div style="display:flex; flex-wrap:wrap; gap:0.4rem; margin:1rem 0 1.5rem 0;">${tagsHtml}</div>
+    <div>${data.content}</div>
   `;
 
   modal.classList.add('active');
@@ -339,21 +274,19 @@ function initModals() {
 
   if (projectCloseBtn) projectCloseBtn.addEventListener('click', closeProjectModal);
 
-  // Close when clicking modal backdrop
   if (projectModal) {
     projectModal.addEventListener('click', (e) => {
       if (e.target === projectModal) closeProjectModal();
     });
   }
 
-  // ESC key listener
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeProjectModal();
   });
 }
 
 /* ==========================================================================
-   6. CONTACT FORM, COPY EMAIL, AND TOASTS
+   3. CONTACT FORM, COPY EMAIL, AND TOASTS
    ========================================================================== */
 function initContactAndCopy() {
   const copyBtn = document.getElementById('copy-email-btn');
@@ -377,10 +310,10 @@ function initContactAndCopy() {
       const topic = document.getElementById('form-topic').value;
       const msg = document.getElementById('form-message').value;
 
-      const subject = encodeURIComponent(`[Inquiry - ${topic.toUpperCase()}] From ${name}`);
+      const subject = encodeURIComponent(`[Inquiry // ${topic.toUpperCase()}] From ${name}`);
       const body = encodeURIComponent(`Sender: ${name} (${email})\n\nMessage:\n${msg}`);
 
-      showToast('Opening your default mail client with transmission payload...');
+      showToast('Opening your default mail client...');
       setTimeout(() => {
         window.location.href = `mailto:foez.official@gmail.com?subject=${subject}&body=${body}`;
       }, 700);
@@ -395,7 +328,7 @@ function showToast(message) {
   const toast = document.createElement('div');
   toast.className = 'toast';
   toast.innerHTML = `
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00f2fe" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4285f4" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
     <span>${message}</span>
   `;
 
@@ -403,14 +336,14 @@ function showToast(message) {
 
   setTimeout(() => {
     toast.style.opacity = '0';
-    toast.style.transform = 'translateY(10px)';
+    toast.style.transform = 'translateY(8px)';
     toast.style.transition = 'all 0.3s ease';
     setTimeout(() => toast.remove(), 300);
   }, 3500);
 }
 
 /* ==========================================================================
-   7. NAVIGATION & SCROLL OBSERVER
+   4. NAVIGATION & SCROLL OBSERVER
    ========================================================================== */
 function initNavigation() {
   const header = document.getElementById('header');
@@ -418,16 +351,14 @@ function initNavigation() {
   const navMenu = document.getElementById('nav-menu');
   const navLinks = document.querySelectorAll('.nav-link');
 
-  // Sticky header background
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
+    if (window.scrollY > 30) {
       header.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');
     }
   });
 
-  // Mobile menu toggle
   if (menuToggle && navMenu) {
     menuToggle.addEventListener('click', () => {
       const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
@@ -435,7 +366,6 @@ function initNavigation() {
       navMenu.classList.toggle('active');
     });
 
-    // Close menu when clicking link
     navLinks.forEach((link) => {
       link.addEventListener('click', () => {
         navMenu.classList.remove('active');
@@ -444,10 +374,10 @@ function initNavigation() {
     });
   }
 
-  // Active link scroll spy
+  // Active section scroll spy
   const sections = document.querySelectorAll('section[id]');
   window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY + 120;
+    const scrollY = window.scrollY + 130;
     sections.forEach((sec) => {
       const top = sec.offsetTop;
       const height = sec.offsetHeight;
@@ -463,4 +393,3 @@ function initNavigation() {
     });
   });
 }
-
