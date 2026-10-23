@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initSiliconCanvas();
   initSpotlightCards();
   initSkillFilters();
-  initWaveformSimulator();
   initModals();
   initContactAndCopy();
   initNavigation();
@@ -190,249 +189,7 @@ function initSkillFilters() {
 }
 
 /* ==========================================================================
-   4. AMBA AXI4 PROTOCOL WAVEFORM SIMULATOR
-   ========================================================================== */
-function initWaveformSimulator() {
-  const canvas = document.getElementById('waveform-canvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-
-  const stateText = document.getElementById('sim-state-text');
-  const cycleVal = document.getElementById('sim-cycle-val');
-  const teleAddr = document.getElementById('tele-addr');
-  const btnTrigger = document.getElementById('btn-trigger-burst');
-  const btnStep = document.getElementById('btn-single-step');
-  const btnReset = document.getElementById('btn-reset-bus');
-
-  let cycle = 0;
-  let burstActive = false;
-  let burstStep = 0;
-
-  // Signal histories for 24 cycles
-  const totalCycles = 24;
-  const signals = {
-    aclk: new Array(totalCycles).fill(0),
-    aresetn: new Array(totalCycles).fill(1),
-    awvalid: new Array(totalCycles).fill(0),
-    awready: new Array(totalCycles).fill(0),
-    wvalid: new Array(totalCycles).fill(0),
-    wready: new Array(totalCycles).fill(0),
-    wdata: new Array(totalCycles).fill(null),
-    bvalid: new Array(totalCycles).fill(0),
-  };
-
-  const burstPayloads = ['0xCAFE_0001', '0xBABE_0002', '0xDEAD_0003', '0xBEEF_0004'];
-
-  function stepClockCycle() {
-    cycle++;
-    cycleVal.textContent = cycle;
-
-    // Shift left
-    for (const key in signals) {
-      signals[key].shift();
-    }
-
-    // ACLK toggles 1 / 0
-    const clkVal = cycle % 2 === 0 ? 1 : 0;
-    signals.aclk.push(clkVal);
-    signals.aresetn.push(1);
-
-    // AXI Protocol Finite State Machine
-    if (burstActive) {
-      burstStep++;
-      if (burstStep === 1) {
-        stateText.textContent = 'ADDRESS PHASE (AW Handshake)';
-        signals.awvalid.push(1);
-        signals.awready.push(0);
-        signals.wvalid.push(0);
-        signals.wready.push(0);
-        signals.wdata.push(null);
-        signals.bvalid.push(0);
-        teleAddr.textContent = '0x8000_1040 [Write Request]';
-      } else if (burstStep === 2) {
-        // Slave responds with AWREADY
-        stateText.textContent = 'AWREADY ASSERTED (Address Ack)';
-        signals.awvalid.push(1);
-        signals.awready.push(1);
-        signals.wvalid.push(0);
-        signals.wready.push(0);
-        signals.wdata.push(null);
-        signals.bvalid.push(0);
-      } else if (burstStep >= 3 && burstStep <= 6) {
-        // Data beats 0 to 3
-        const beat = burstStep - 3;
-        stateText.textContent = `DATA BEAT ${beat + 1}/4 (${burstPayloads[beat]})`;
-        signals.awvalid.push(0);
-        signals.awready.push(0);
-        signals.wvalid.push(1);
-        signals.wready.push(1);
-        signals.wdata.push(burstPayloads[beat]);
-        signals.bvalid.push(0);
-      } else if (burstStep === 7) {
-        // Response phase
-        stateText.textContent = 'RESPONSE PHASE (BVALID Handshake)';
-        signals.awvalid.push(0);
-        signals.awready.push(0);
-        signals.wvalid.push(0);
-        signals.wready.push(0);
-        signals.wdata.push(null);
-        signals.bvalid.push(1);
-      } else if (burstStep === 8) {
-        stateText.textContent = 'BURST COMPLETED (OKAY 200)';
-        signals.awvalid.push(0);
-        signals.awready.push(0);
-        signals.wvalid.push(0);
-        signals.wready.push(0);
-        signals.wdata.push(null);
-        signals.bvalid.push(0);
-        burstActive = false;
-        burstStep = 0;
-      }
-    } else {
-      signals.awvalid.push(0);
-      signals.awready.push(0);
-      signals.wvalid.push(0);
-      signals.wready.push(0);
-      signals.wdata.push(null);
-      signals.bvalid.push(0);
-    }
-
-    renderWaveforms();
-  }
-
-  function renderWaveforms() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    const rowHeight = 32;
-    const cycleWidth = canvas.width / totalCycles;
-    const signalKeys = ['aclk', 'aresetn', 'awvalid', 'awready', 'wvalid', 'wready', 'wdata', 'bvalid'];
-
-    // Draw background guide grid
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
-    ctx.lineWidth = 1;
-    for (let c = 0; c <= totalCycles; c++) {
-      ctx.beginPath();
-      ctx.moveTo(c * cycleWidth, 0);
-      ctx.lineTo(c * cycleWidth, canvas.height);
-      ctx.stroke();
-    }
-
-    signalKeys.forEach((key, rowIndex) => {
-      const baseY = rowIndex * rowHeight + rowHeight - 6;
-      const highY = rowIndex * rowHeight + 8;
-      const history = signals[key];
-
-      ctx.beginPath();
-      ctx.lineWidth = 1.8;
-
-      if (key === 'wdata') {
-        // Render bus packet transitions
-        ctx.strokeStyle = '#f59e0b';
-        ctx.fillStyle = 'rgba(245, 158, 11, 0.12)';
-        ctx.font = '10px JetBrains Mono';
-
-        for (let i = 0; i < totalCycles; i++) {
-          const val = history[i];
-          const x = i * cycleWidth;
-          if (val) {
-            ctx.beginPath();
-            ctx.moveTo(x + 2, baseY);
-            ctx.lineTo(x + 5, highY);
-            ctx.lineTo(x + cycleWidth - 5, highY);
-            ctx.lineTo(x + cycleWidth - 2, baseY);
-            ctx.lineTo(x + cycleWidth - 5, baseY + 4);
-            ctx.lineTo(x + 5, baseY + 4);
-            ctx.closePath();
-            ctx.fill();
-            ctx.stroke();
-
-            ctx.fillStyle = '#fde047';
-            ctx.fillText(val.slice(2, 6), x + 6, highY + 11);
-            ctx.fillStyle = 'rgba(245, 158, 11, 0.12)';
-          } else {
-            ctx.beginPath();
-            ctx.moveTo(x, (baseY + highY) / 2);
-            ctx.lineTo(x + cycleWidth, (baseY + highY) / 2);
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
-            ctx.stroke();
-          }
-        }
-      } else {
-        // Digital 1 / 0 waveform
-        if (key === 'aclk') {
-          ctx.strokeStyle = '#38bdf8';
-        } else if (key.includes('valid')) {
-          ctx.strokeStyle = '#00f2fe';
-        } else if (key.includes('ready')) {
-          ctx.strokeStyle = '#10b981';
-        } else {
-          ctx.strokeStyle = '#94a3b8';
-        }
-
-        for (let i = 0; i < totalCycles; i++) {
-          const val = history[i];
-          const x = i * cycleWidth;
-          const y = val === 1 ? highY : baseY;
-
-          if (i === 0) {
-            ctx.moveTo(x, y);
-          } else {
-            const prevVal = history[i - 1];
-            const prevY = prevVal === 1 ? highY : baseY;
-            if (prevY !== y) {
-              ctx.lineTo(x, y); // vertical edge
-            }
-          }
-          ctx.lineTo(x + cycleWidth, y);
-        }
-        ctx.stroke();
-      }
-    });
-  }
-
-  // Auto-run continuous clock simulation
-  let autoTimer = setInterval(stepClockCycle, 600);
-
-  if (btnTrigger) {
-    btnTrigger.addEventListener('click', () => {
-      burstActive = true;
-      burstStep = 0;
-      stateText.textContent = 'STARTING AXI4 WRITE BURST...';
-      showToast('AXI4 4-Beat Write Burst Transmitted!');
-    });
-  }
-
-  if (btnStep) {
-    btnStep.addEventListener('click', () => {
-      clearInterval(autoTimer);
-      stepClockCycle();
-      showToast('Single Clock Step Executed.');
-    });
-  }
-
-  if (btnReset) {
-    btnReset.addEventListener('click', () => {
-      burstActive = false;
-      burstStep = 0;
-      cycle = 0;
-      for (const k in signals) {
-        signals[k].fill(k === 'aresetn' ? 0 : 0);
-      }
-      stateText.textContent = 'ARESETn ASSERTED';
-      renderWaveforms();
-      showToast('Bus Reset Asserted!');
-      setTimeout(() => {
-        signals.aresetn.fill(1);
-        autoTimer = setInterval(stepClockCycle, 600);
-      }, 1000);
-    });
-  }
-
-  renderWaveforms();
-}
-
-/* ==========================================================================
-   5. PROJECT DETAILS MODAL & DATA
+   4. PROJECT DETAILS MODAL & DATA
    ========================================================================== */
 const projectDetails = {
   'rv64-soc': {
@@ -575,46 +332,23 @@ function initModals() {
   const projectModal = document.getElementById('project-modal');
   const projectCloseBtn = document.getElementById('modal-close');
 
-  const resumeModal = document.getElementById('resume-modal');
-  const resumeCloseBtn = document.getElementById('resume-modal-close');
-  const openResumeBtn = document.getElementById('open-resume-btn');
-  const heroResumeBtn = document.getElementById('hero-resume-btn');
-
-  function closeAllModals() {
+  function closeProjectModal() {
     if (projectModal) projectModal.classList.remove('active');
-    if (resumeModal) resumeModal.classList.remove('active');
     document.body.style.overflow = '';
   }
 
-  if (projectCloseBtn) projectCloseBtn.addEventListener('click', closeAllModals);
-  if (resumeCloseBtn) resumeCloseBtn.addEventListener('click', closeAllModals);
-
-  if (openResumeBtn) {
-    openResumeBtn.addEventListener('click', () => {
-      resumeModal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    });
-  }
-
-  if (heroResumeBtn) {
-    heroResumeBtn.addEventListener('click', () => {
-      resumeModal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    });
-  }
+  if (projectCloseBtn) projectCloseBtn.addEventListener('click', closeProjectModal);
 
   // Close when clicking modal backdrop
-  [projectModal, resumeModal].forEach((m) => {
-    if (m) {
-      m.addEventListener('click', (e) => {
-        if (e.target === m) closeAllModals();
-      });
-    }
-  });
+  if (projectModal) {
+    projectModal.addEventListener('click', (e) => {
+      if (e.target === projectModal) closeProjectModal();
+    });
+  }
 
   // ESC key listener
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeAllModals();
+    if (e.key === 'Escape') closeProjectModal();
   });
 }
 

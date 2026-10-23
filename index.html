@@ -44,16 +44,15 @@
         <a href="#experience" class="nav-link">Experience</a>
         <a href="#skills" class="nav-link">Skills</a>
         <a href="#projects" class="nav-link">Projects</a>
-        <a href="#simulator" class="nav-link">Bus Simulator</a>
         <a href="#publications" class="nav-link">Research</a>
         <a href="#contact" class="nav-link">Contact</a>
       </nav>
 
       <div class="nav-actions">
-        <button class="btn btn-outline btn-sm" id="open-resume-btn" aria-label="Open Resume Preview">
+        <a href="Foez_Ahmed_CV.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" aria-label="View Resume PDF">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-          <span>Resume</span>
-        </button>
+          <span>Resume PDF</span>
+        </a>
         <button class="mobile-toggle" id="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
           <span class="bar"></span>
           <span class="bar"></span>
@@ -101,10 +100,10 @@
             <span>Explore Silicon Projects</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </a>
-          <button class="btn btn-glass" id="hero-resume-btn">
+          <a href="Foez_Ahmed_CV.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-glass" id="hero-resume-btn" aria-label="View Curriculum Vitae PDF">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-            <span>Curriculum Vitae</span>
-          </button>
+            <span>View CV (PDF)</span>
+          </a>
           <a href="#contact" class="btn btn-secondary">Get In Touch</a>
         </div>
 
@@ -685,82 +684,11 @@
       </div>
     </section>
 
-    <!-- INTERACTIVE HARDWARE BUS & WAVEFORM SIMULATOR (Innovative Reactive Element) -->
-    <section id="simulator" class="section">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag">// 05 &bull; INTERACTIVE SILICON LAB</span>
-          <h2 class="section-title">AMBA AXI4 Protocol Waveform Simulator</h2>
-          <p class="section-subtitle">Experience live cycle-accurate bus handshake transactions. Trigger write bursts or cache lookups and watch the signal waveforms react in real-time.</p>
-        </div>
-
-        <div class="simulator-wrapper glass-card">
-          <!-- Control Panel -->
-          <div class="sim-toolbar">
-            <div class="sim-status">
-              <span class="sim-dot live"></span>
-              <span class="sim-label">BUS STATE: <strong id="sim-state-text">IDLE / CLK RUNNING</strong></span>
-              <span class="sim-clock-counter">CYCLE: <strong id="sim-cycle-val">0</strong></span>
-            </div>
-
-            <div class="sim-actions">
-              <button class="btn btn-sm btn-outline" id="btn-single-step">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M5 4l10 8-10 8V4zm11 0h3v16h-3V4z"/></svg>
-                <span>Step Clock</span>
-              </button>
-              <button class="btn btn-sm btn-primary" id="btn-trigger-burst">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                <span>Send AXI4 Write Burst (INCR 4)</span>
-              </button>
-              <button class="btn btn-sm btn-secondary" id="btn-reset-bus">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
-                <span>Assert Reset</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Waveform Canvas Display -->
-          <div class="waveform-container">
-            <div class="signal-labels">
-              <div class="sig-name">ACLK <span class="sig-type">1.5 GHz</span></div>
-              <div class="sig-name">ARESETn <span class="sig-type">Active Low</span></div>
-              <div class="sig-name">AWVALID <span class="sig-type">Master</span></div>
-              <div class="sig-name">AWREADY <span class="sig-type">Slave</span></div>
-              <div class="sig-name">WVALID <span class="sig-type">Master</span></div>
-              <div class="sig-name">WREADY <span class="sig-type">Slave</span></div>
-              <div class="sig-name">WDATA[63:0] <span class="sig-type">Bus</span></div>
-              <div class="sig-name">BVALID <span class="sig-type">Response</span></div>
-            </div>
-
-            <div class="canvas-scroll-window">
-              <canvas id="waveform-canvas" height="260" width="800"></canvas>
-            </div>
-          </div>
-
-          <!-- Live Bus Transaction Telemetry Box -->
-          <div class="sim-telemetry-bar">
-            <div class="telemetry-item">
-              <span class="tele-k">Transaction Address:</span>
-              <span class="tele-v" id="tele-addr">0x8000_1040 (DRAM Bank 0)</span>
-            </div>
-            <div class="telemetry-item">
-              <span class="tele-k">Burst Mode:</span>
-              <span class="tele-v">INCR (Len: 4, Size: 8B)</span>
-            </div>
-            <div class="telemetry-item">
-              <span class="tele-k">Protocol Compliance:</span>
-              <span class="tele-v success">&bull; SVA Rules Passing [100%]</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- PUBLICATIONS & RESEARCH -->
     <section id="publications" class="section section-darker">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">// 06 &bull; SCHOLARLY INQUIRY</span>
+          <span class="section-tag">// 05 &bull; SCHOLARLY INQUIRY</span>
           <h2 class="section-title">Publications & Academic Research</h2>
           <p class="section-subtitle">Author of 8 peer-reviewed research papers investigating advanced semiconductor devices and modular computing.</p>
         </div>
@@ -812,7 +740,7 @@
     <section id="contact" class="section">
       <div class="container">
         <div class="section-header text-center">
-          <span class="section-tag">// 07 &bull; REACH OUT</span>
+          <span class="section-tag">// 06 &bull; REACH OUT</span>
           <h2 class="section-title">Let&rsquo;s Build Next-Gen Silicon</h2>
           <p class="section-subtitle">Interested in collaborating on RISC-V SoC architecture, UVM verification, or open-source hardware? Reach out directly.</p>
         </div>
@@ -952,97 +880,6 @@
       <button class="modal-close-btn" id="modal-close" aria-label="Close modal">&times;</button>
       <div class="modal-body" id="modal-content">
         <!-- Injected via JavaScript -->
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: RESUME PREVIEW & DOWNLOAD -->
-  <div class="modal-overlay" id="resume-modal" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="modal-container resume-modal-container glass-card">
-      <div class="resume-modal-topbar">
-        <div class="modal-chip-title">
-          <span class="chip-dot"></span>
-          <span>CURRICULUM VITAE &mdash; FOEZ AHMED</span>
-        </div>
-        <div class="resume-actions">
-          <button class="btn btn-sm btn-primary" onclick="window.print()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-            <span>Print / PDF</span>
-          </button>
-          <button class="modal-close-btn" id="resume-modal-close" aria-label="Close resume preview">&times;</button>
-        </div>
-      </div>
-
-      <div class="resume-preview-sheet" id="resume-print-area">
-        <header class="resume-sheet-header">
-          <h1 class="r-name">FOEZ AHMED</h1>
-          <p class="r-title">Lead RTL Design & Verification Engineer</p>
-          <p class="r-tags">RISC-V SoC &bull; AXI Interconnect &bull; Cache Coherence &bull; DDR Subsystems</p>
-          <p class="r-contact">Dhaka, Bangladesh &bull; +880 1746-468041 &bull; foez.official@gmail.com &bull; github.com/foez-ahmed &bull; linkedin.com/in/foez-ahmed-84636b137</p>
-        </header>
-
-        <section class="r-section">
-          <h2 class="r-sec-title">PROFESSIONAL SUMMARY</h2>
-          <p class="r-text">
-            RTL Design & Verification Engineer with 4.5+ years of experience spanning RISC-V SoC architecture, AXI interconnects, cache coherence, and DDR controller development. Technical lead for a quad-core RV64GV SoC targeting 1.5 GHz on 12 nm, with architecture and verification ownership through tape-out. Built a reusable class-based AXI4 Master/Slave VIP and owned a custom directory-based coherent cache protocol end to end. Currently leading DDR controller microarchitecture and AXI integration for a ~50-engineer team at ADN Semiconductors.
-          </p>
-        </section>
-
-        <section class="r-section">
-          <h2 class="r-sec-title">TECHNICAL SKILLS</h2>
-          <ul class="r-skills-list">
-            <li><strong>Architecture & Design:</strong> RV64G cores, RISC-V SoC architecture, AXI / AHB / APB / OBI / Wishbone, AXI ID/data-width conversion, DDR controller microarchitecture, directory-based cache coherence, foundry memory blocks & PLLs.</li>
-            <li><strong>Peripherals:</strong> UART, I2C, I2S, SPI</li>
-            <li><strong>Verification:</strong> SystemVerilog, SVA, class-based testing, directed testing, functional coverage, UVM, CoCoTB, assembly/C system-level testing.</li>
-            <li><strong>Emulation & Timing:</strong> Multi-FPGA emulation, Xilinx Vivado, static timing analysis (STA).</li>
-            <li><strong>Tools & Scripting:</strong> Synopsys VCS, Siemens Questa, Xilinx Vivado, Icarus Verilog, Git, C, Python, Bash, GNU Make.</li>
-          </ul>
-        </section>
-
-        <section class="r-section">
-          <h2 class="r-sec-title">PROFESSIONAL EXPERIENCE</h2>
-          
-          <div class="r-exp-block">
-            <div class="r-exp-head">
-              <strong>Lead Engineer, RTL Design & Verification</strong>
-              <span>Jan 2026 &mdash; Present</span>
-            </div>
-            <div class="r-exp-sub">ADN Semiconductors, Mohakhali, Dhaka</div>
-            <ul class="r-bullets">
-              <li>Define the microarchitecture and data-handling architecture of a custom DDR controller IP and its AXI integration into the SoC.</li>
-              <li>Provide technical direction for a team of approximately 50 engineers; lead architectural, functional, and RTL/design reviews.</li>
-              <li>Guide optimization of RTL implemented by junior engineers from the microarchitecture specification.</li>
-              <li>Contribute to RISC-V-related projects and FPGA emulation activities.</li>
-            </ul>
-          </div>
-
-          <div class="r-exp-block">
-            <div class="r-exp-head">
-              <strong>Engineer, RTL Design & Verification</strong>
-              <span>Jan 2022 &mdash; Jan 2026</span>
-            </div>
-            <div class="r-exp-sub">Dynamic Solution Innovators Ltd., Dhaka (Client: California Fabless Semiconductor Co.)</div>
-            <ul class="r-bullets">
-              <li><strong>RISC-V Quad-Core SoC (Taped Out; 12nm, 1.5 GHz target):</strong> Technical lead for architecture and verification of a 4&times; RV64GV SoC with dedicated wireless subsystem, 16KB L1 I-cache, 32KB L1 D-cache per core, and 2MB shared L2 cache with 30+ engineers.</li>
-              <li>Co-proposed and implemented a split of the AXI fabric into a low-latency high-bandwidth compute network and system peripheral network.</li>
-              <li>Resolved AXI ID-width growth and data-width conversions across hierarchy; revalidated fabric with AXI verification suite.</li>
-              <li>Established multi-stage system verification (Smoke, ISA Functional ~100%, Interconnect ~95%, Stress ~90%, Benchmarks).</li>
-              <li>Built two-FPGA emulation framework with virtual shared-host-memory communication interface.</li>
-              <li><strong>AMBA AXI4 VIP:</strong> Developed class-based SystemVerilog AXI4 VIP supporting simultaneous bidirectional transactions, QoS reordering, and SVA coverage.</li>
-              <li><strong>Coherent Cache:</strong> Architected 4-way private caches with directory coherence and write-back eviction logic.</li>
-            </ul>
-          </div>
-        </section>
-
-        <section class="r-section">
-          <h2 class="r-sec-title">EDUCATION & PUBLICATIONS</h2>
-          <div class="r-exp-head">
-            <strong>B.Sc. in Electrical and Electronic Engineering (EEE)</strong>
-            <span>Graduated Feb 2022</span>
-          </div>
-          <div class="r-exp-sub">Shahjalal University of Science and Technology (SUST), Sylhet, Bangladesh</div>
-          <p class="r-text mt-2"><strong>Selected Publications:</strong> TMD based Multi-Bridge Channel FET (IEEE NAP 2020) &bull; Intel 8086 like Modular Trainer Board System (IEEE RAAICON 2021) &bull; 8 peer-reviewed publications total.</p>
-        </section>
       </div>
     </div>
   </div>
